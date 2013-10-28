@@ -1,0 +1,93 @@
+
+
+h1{
+margin-left:50%;
+
+
+}
+
+button{
+
+
+
+}
+
+
+#spiller{
+
+margin-top:20%;
+}
+
+div{
+position: fixed;
+background-color:grey;
+}
+
+#dsum{
+margin-left:60%;
+width:5%;
+text-align:center;
+}
+
+#d1{
+margin-left:90%;
+
+}
+
+#d2{
+margin-left:85%;
+
+}
+
+#d3{
+margin-left:80%;
+
+}
+
+#d4{
+margin-left:75%;
+
+}
+
+#d5{
+margin-left:70%;
+
+}
+#psum{
+margin-left:60%;
+margin-top: 23%;
+width:5%;
+text-align:center;
+}
+
+#p1{
+margin-left:90%;
+margin-top: 23%;
+}
+
+#p2{
+margin-left:85%;
+margin-top: 23%;
+}
+
+#p3{
+margin-left:80%;
+margin-top: 23%;
+}
+
+#p4{
+margin-left:75%;
+margin-top: 23%;
+}
+
+#p5{
+margin-left:70%;
+margin-top: 23%;
+}
+
+#cashBox{
+margin-top: 23%;
+margin-bottom:10%;
+width:3%;
+text-align:center;
+}
