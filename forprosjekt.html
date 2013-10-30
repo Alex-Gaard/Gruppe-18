@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Forprosjekt Gruppe 18</title>
+<meta charset=UTF-8 />
+    <style>
+        header, article, footer {width: 800px;} 
+        footer {background-color: black; color: white;} 
+        img {width: 800px;} 
+        @media print {body {font-family: Times New Roman, serif; font-size: 12px;}} 
+        @media screen {body {font-family: Myriad Pro, sans-serif; font-size: 18px;}}
+    </style>
+</head>
+<body>
+<header>
+    <h1>Forprosjekt gruppe 18</h1>
+    <p>Rapport om forprosjekt for kull 2013 i emnet Webprosjekt 
+    (DAFE1200/ITPE1200/ADTS1200) ved Høgskolen i Oslo og Akershus.</p>
+</header>
+<article>
+<section>
+    <h2>Use cases</h2>
+    <p>Brukeren skal kunne starte et spill som ikke trenger å settes
+    på pause, da hvert trinn krever hendling fra brukeren. Slik er 
+    dette forenelig med disktraksjon når foreleser ikke kommer med
+    nytt stoff, men bare leser høyt fra sin presentasjon.</p>
+    <p>Det skal gå an å finne High Scores over tidligere spill, slik 
+    at spilleren har noe å motivere seg mot.</p>
+    <p>Siden siden skal ligge på nett, må det være en forklarende 
+    side over hvem som har laget siden og hvorfor. At dette er et 
+    skoleprosjekt og ikke tenkt til kommersielt bruk.</p>
+    <p>Spillet er Black Jack, som er et kortspill. Reglene er de 
+    samme som i kortspillet. Spilleren skal derfor kunne gjøre de
+    tingene man kan i kortspillet: Hit, stand, double down, spilt
+    og muligens surrender.</p>
+    <p>Hvis det skal være mulig å spille etter forskjellige regler
+    vil disse være tilgjengelige for å slås på eller av på en egen 
+    side. Surrender er en slik regel, som ikke tillates alle steder.</p>
+    <p>For å hjelpe nye spillere skal det finnes en enkel side med
+    hjelp og gjennomgang av regler.</p>
+    <h2>Enkel prototype av utseende</h2>
+    <img src="http://student.cs.hioa.no/~s198548/WebprosjektH2013/bilder/lectureGames_forside.gif" /><br/>
+    <img src="http://student.cs.hioa.no/~s198548/WebprosjektH2013/bilder/lectureGames_BJ.gif" /><br/>
+</section>
+<section>
+    <h2>Arbeidsfordeling</h2>
+    <p>Struktur og utseende lages hovedsaklig av Tobias og Olav. De har ansvar 
+    for alle grafikkelementer og at de tegnes opp på riktig sted. Innhold og kode
+    lages hovedsaklig av Sindre og Alexander. De bygger motoren til spillet og 
+    sørger for håndtering av data mellom klient og server.</p>
+    <p>Vurderinger og tilpassinger for å sørge for at nettsiden skalerer bra 
+    til mobil- og nettbrettstørrelse er et delt ansvar. De forskjellige endringene
+    gjøres etter demokratiske prinsipper med rent flertall. Alle tilpasninger 
+    skal være i tråd med vår kravspesifikasjon og universell utforming.</p>
+    <h2>Milepælsplan</h2>
+    <p>Laget i MS Project 2013.<br>
+    Vi laget denne milepælplanen sammen i vårt første møte og bestemmte oss 
+    for hvilke oppgaver som måtte gjøres og omtrent hvor lang tid vi trengte 
+    på hver oppgave.<br>
+    Pilene på bildet indikerer oppgaver som må gjøres før vi går videre på 
+    en annen oppgave, firkantene indikerer en oppnådd milepæl.
+    </p>
+    <img src="http://student.cs.hioa.no/~s198548/WebprosjektH2013/bilder/Gannt_gr18.png" /><br/>
+</section>
+<section>
+    <h2>Valg av teknologier</h2>
+    <p>Strukturen til siden skal validere til HTML 5 og de forskjellige
+    delene og filene blir knyttet sammen med php. Med de forskjellige
+    delene av siden i egne filer blir det lettere for flere å jobbe 
+    med siden simultant.</p>
+    <p>Selve spillmotoren bygges i javascript. For å minimere muligheten
+    for juks, blir spillerens score (penger) lagret på server. Så for hver 
+    innsats lastes score til server, men under spillet skjer alt i 
+    javascript.</p>
+    <p>Vi tar forbehold om at vi klarer å skape en god synergi mellom javascript 
+    og php eller at vi finner et alternativ. Ajax er blitt nevnt, men vi er ikke
+    sikre om vi klarer å få til den funksjonaliteten vi trenger på tiden vi har 
+    til rådighet. Vi faller tilbake på å lage et rent javascript-spill uten 
+    high scores om vi ikke klarer å laste dette opp til server på en god måte.</p>
+    <p>Kontroll på elementer (kort) skal gjøres med CSS manipulering
+    i DOM via javascript alternativt JQuery.</p>
+    <h2>Git</h2>
+    <p>Siden vi ikke er en kommersiell side kan vi bruke GitHub gratis.
+    Målet er å bruke GitHub til versjonshåndtering av all kode og 
+    tekstfiler.</p>
+    <p>I tillegg planlegger vi å bruke SkyDrive til å dele bilder og 
+    skisser og andre filer, da dette grensesnittet er bedre til dette.</p>
+    <h2>Arbeidsmetode</h2>
+    <p>Da to av gruppens medlemmer går anvendt datateknologi, er det
+    prototyping som gruppen kjenner best fra tidligere. Derfor legger vi til 
+    grunn at vi bruker denne metoden gjennom prosjektet. Skisser vil 
+    danne grunnlaget før koding.</p>
+</section>
+</article>
+<footer>
+    &copy; 2013 Alexander O. Gaard, Olav A. Måren, Sindre V. Tvinnereim
+    og Tobias W. Viulsrød.
+</footer>
+</body>
+</html>
