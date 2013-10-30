@@ -14,7 +14,8 @@
             <h1>You:</h1>
             <div id="player-space"></div>
             <div id="sum-player"></div>
-            <div id="staker-player"></div>
+            <div id="stake-player"></div>
+            <div id="bank"></div>
             <button id="Hit">Hit</button>
             <button id="Hold">Hold</button>
             <button id="Double-Down">Double Down</button>
