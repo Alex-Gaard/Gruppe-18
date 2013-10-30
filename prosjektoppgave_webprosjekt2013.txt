@@ -1,10 +1,10 @@
 Prosjektoppgave WebprosjektH2013 gruppe 18
 ==========================================
 Deltagere:
-- Alexander O. Gaard: (s198585)
-- Olav A. Måren (s198548)
+- Alexander O. Gård: (s198585)
+- Olav A. Måren: (s198548)
 - Sindre Tvinnereim: (s198736)
-- Tobias W. Viulsrød (s198523)
+- Tobias W. Viulsrød: (s198523)
 
 Siden legges ut på:
 http://student.cs.hioa.no/~s198548/WebprosjektH2013/
