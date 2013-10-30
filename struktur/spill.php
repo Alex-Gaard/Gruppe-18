@@ -7,12 +7,24 @@
     <body>
         <article>
             <h1>Dealer:</h1>
-            <div id="dealer-space"></div>
+            <div id="dealer-space">
+            <img id="dealer-1">
+            <img id="dealer-2">
+            <img id="dealer-3">
+            <img id="dealer-4">
+            <img id="dealer-5">
+            </div>
             <div id="sum-dealer"></div>
             <div id="stake-dealer"></div>
             
             <h1>You:</h1>
-            <div id="player-space"></div>
+            <div id="player-space">
+            <img id="player-1">
+            <img id="player-2">
+            <img id="player-3">
+            <img id="player-4">
+            <img id="player-5">
+            </div>
             <div id="sum-player"></div>
             <div id="stake-player"></div>
             <div id="bank"></div>
