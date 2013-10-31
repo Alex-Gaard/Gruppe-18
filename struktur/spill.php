@@ -15,7 +15,10 @@
             <img src="./cards/c1.png" alt="Ace of Clubs" id="dealer_card_1" class="card_right card">
             </div>
             <div id="cards_sum_dealer"></div>
-            <div id="stake_player1" class="cash"></div>
+            <fieldset id="stake_player1" class="cash">
+                <legend>Stake</legend>
+                $35
+            </fieldset>
             
             <h1>You:</h1>
             <div id="player-space">
@@ -26,7 +29,10 @@
             <img src="./cards/c1.png" alt="Ace of Clubs" id="player_card_1" class="card_left card">
             </div>
             <div id="cards_sum_player"></div>
-            <div id="bank_player1" class="cash"></div>
+            <fieldset id="bank_player1" class="cash">
+                <legend>Bank</legend>
+                $200
+            </fieldset>
             <button id="Hit">Hit</button>
             <button id="Hold">Hold</button>
             <button id="Double-Down">Double Down</button>
