@@ -7,27 +7,33 @@
 body { 
     display: block;
     font-family: Myriad Pro, Arial, sans-serif;
+    margin: 0;
 }
-header {
+header, footer {
     width: 100%;
-    background-color: #000;
+    background-color: #444;
     color: #fff;
+    height: 7.9em;
 }
 header h1 {
-    text-align: center;
     font-size: 3em;
     padding-top: .3em;
     padding-bottom: .3em;
+    margin: 0;
+    margin-left: .3em;
 }
+footer hr {border: 3px solid #fff;}
+footer p {margin-top: 1em; margin-left: 1em;}
 nav {
     padding: 0;
 }
+nav h1 {display: none;} /*skjuler h1 som leses av skjermleser (main menu)*/
 nav ul {
     padding: 0;
     margin: 0;
     border: 1px solid #fff;
-    float: right;
-    margin-right: 35%;
+    float: left;
+    margin-left: 1em;
 } 
 nav li {
     display: block;
@@ -36,6 +42,81 @@ nav li {
     margin: 0;
     padding: .5em;
 }
-header p {
-    clear: both;
+
+/* START SPILLEROMRÅDE: */
+hr {clear: both; border: 1px solid #000}
+article h1 {
+    margin: 0;
+    margin-left: .7em;
 }
+article {
+    background-color: #393;
+    height: 40em;
+}
+.card {
+    width: 10em;
+    height: 14.21em;
+    border: none;
+}
+.card_right {
+    float: right;
+}
+.card_under_right {
+    float: right;
+    margin-left: -6.5em;
+}
+.card_left {
+    float: left;
+}
+.card_under_left {
+    float: left;
+    margin-right: -6.5em;
+}
+/*bokser med sum av kort*/
+.cards_sum {
+    border: 1px solid #000;
+    border-radius: .3em;
+    font-size: 3em;
+    padding: .5em;
+    width: 1.33em;
+    text-align: center;
+}
+#cards_sum_dealer {
+    margin-left: .3em;
+    float: right;
+}
+#cards_sum_player {
+    margin-right: .3em;
+    float: left;
+}
+/*bokser med sum av cash*/
+legend {font-size: .5em;}
+.cash {
+    border: 1px solid #000;
+    border-radius: .3em;
+    margin-top: .8em;
+    font-size: 3em;
+    padding: .5em;
+    text-align: center;
+}
+#stake_player1 {
+    margin-left: .3em;
+    float: left;
+}
+#bank_player1 {
+    margin-right: .3em;
+    float: right;
+}
+/* knappene til spilleren */
+button {
+    border: 2px solid #fff;
+    background-color: #000;
+    color: #fff;
+    font-size: 1.5em;
+    float: left;
+}
+#Hit {
+    clear: both;
+    margin-left: .3em;
+}
+/* SLUTT SPILLEROMRÅDE */
