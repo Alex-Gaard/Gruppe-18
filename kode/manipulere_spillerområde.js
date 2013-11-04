@@ -13,15 +13,15 @@ document.getElementById("Hit").onclick = settInnKort(A, C, C2);
 
 function lagKortDealer(kortID, kortNavn, kortPlassering){ //lager img element
     var bildeAdresse = "./cards/" + kortID + ".png";
-    var imgID = "dealer_card_"; + kortPlassering;
-    var nyttKort = '<img href"' + bildeAdresse + '" alt="' + kortNavn;
+    var imgID = "dealer_card_" + kortPlassering;
+    var nyttKort = '<img href="' + bildeAdresse + '" alt="' + kortNavn;
     nyttKort += '" id="' + imgID + '" class="card card_right"/>';
     return nyttKort;
 }
 function lagKortSpiller(kortID, kortNavn, kortPlassering){ //lager img element
     var bildeAdresse = "./cards/" + kortID + ".png";
-    var imgID = "player_card_"; + kortPlassering;
-    var nyttKort = '<img href"' + bildeAdresse + '" alt="' + kortNavn;
+    var imgID = "player_card_" + kortPlassering;
+    var nyttKort = '<img href="' + bildeAdresse + '" alt="' + kortNavn;
     nyttKort += '" id="' + imgID + '" class="card card_right"/>';
     return nyttKort;
 }
