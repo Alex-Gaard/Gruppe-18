@@ -1,10 +1,10 @@
 /*-------------------------------------------------------------------*/
 /* Dette skriptet skal legge til kort og annen data i spillerområdet */
-/* Skrevet i ren javascript uten bruk av JQuery --------------------*/
+/* Skrevet i ren javascript uten bruk av JQuery ---------------------*/
 /*-------------------------------------------------------------------*/
 
-var spillerKortNr = 0; //hvor mange kort er delt ut til spiller
-var dealerKortNr = 0; //hvor mange kort er delt ut til dealer
+var spiller_kort_nr = 0; //hvor mange kort er delt ut til spiller
+var dealer_kort_nr = 0; //hvor mange kort er delt ut til dealer
 
 function settInnKort(kort_eier, kort_id, kort_navn){
     /*------------------------------------------------------*/
