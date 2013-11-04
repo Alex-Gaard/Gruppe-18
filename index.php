@@ -2,9 +2,9 @@
 <html>
     <head>
         <title>lectureGaming</title>
-        <meta charset=UTF-8/>
+        <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="./struktur/casino.css" title="Casino" />
-        <script src="./kode/manipulere_spillerområde.js"></script>
+        <script src="./kode/manipulere_spilleromraade.js"></script>
     </head>
     <body>
 <?php
