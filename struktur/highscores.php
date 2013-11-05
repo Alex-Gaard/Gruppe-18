@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="./casino.css" title="Casino">
     </head>
     <body>
-            <h1>High scores<h1>
+            <h2>High scores<h2>
         <?php
 session_start();
 include './struktur/header.html';
