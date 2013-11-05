@@ -6,11 +6,13 @@
         <link rel="stylesheet" type="text/css" href="./casino.css" title="Casino">
     </head>
     <body>
-            <h2>High scores<h2>
         <?php
 session_start();
-include './struktur/header.html';
-include './struktur/footer.html';
+include 'header.html';
+?>
+            <h2>High scores</h2>
+        <?php
+include 'footer.html';
 ?>
     </body>
 </html>
