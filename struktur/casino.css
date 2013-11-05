@@ -42,6 +42,14 @@ nav li {
     margin: 0;
     padding: .5em;
 }
+h2{
+    text-align:center;
+    font-size: 2em;
+}
+#about_us{
+    margin-left:2em;
+    
+}
 
 /* START SPILLEROMRÅDE: */
 hr {clear: both; border: 1px solid #000}
