@@ -105,5 +105,11 @@ function flipCard(){
     var bakside = document.getElementById('backside');              //referanse til kort med baksiden opp
     document.getElementById('dealer_space').removeChild(bakside);   //fjerner kortet
     var skjult_kort = document.getElementById('hidden_card');       //referanse til det skjulte kortet
-    skjult_kort.setAttribute('id', 'dealer_card_2');                //skjer ALLTID etter at to kort er delt til dealer
+    skjult_kort.setAttribute('id', 'dealer_card_2');                //dealer har ALLTID to kort når kortene snus
+    //vise dealerens sum nå når kortene til dealer er vist
+    var dealer_sum_boks = document.getElementById('cards_sum_dealer');
+    var dealer_sum = dSum(); //kaller funksjon i spillmotor
+    var ny_tekst_node = document.createTextNode(dealer_sum);
+    var gammel_tekst_node = dealer_sum_boks.firstChild;
+    dealer_sum_boks.replaceChild(ny_tekst_node, gammel_tekst_node);
 }
