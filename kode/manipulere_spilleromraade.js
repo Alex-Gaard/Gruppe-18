@@ -122,7 +122,19 @@ function ryddBordet(){
         holder_kort.removeChild(first_kort);
         first_kort = holder_kort.firstChild;
     }
+    
+    //tegne inn git squid igjen
+    var new_squid = document.createElement('img');
+    new_squid.setAttribute('src', './cards/git.png');
+    new_squid.setAttribute('alt', 'Deck with picture og Git Squid');
+    new_squid.setAttribute('id', 'backside');
+    new_squid.setAttribute('class', 'card card_right');
+    holder_kort.appendChild(new_squid);
+    
+    //fjerne players kort
+
     holder_kort = document.getElementById('player_space');
+    first_kort = holder_kort.firstChild;
     while(first_kort){
         holder_kort.removeChild(first_kort);
         first_kort = holder_kort.firstChild;
