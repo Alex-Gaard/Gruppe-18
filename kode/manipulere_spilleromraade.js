@@ -113,3 +113,18 @@ function flipCard(){
     var gammel_tekst_node = dealer_sum_boks.firstChild;
     dealer_sum_boks.replaceChild(ny_tekst_node, gammel_tekst_node);
 }
+
+//rydde bordet for kort
+function ryddBordet(){
+    var holder_kort = document.getElementById('dealer_space');
+    var first_kort = holder_kort.firstChild;
+    while(first_kort){
+        holder_kort.removeChild(first_kort);
+        first_kort = holder_kort.firstChild;
+    }
+    holder_kort = document.getElementById('player_space');
+    while(first_kort){
+        holder_kort.removeChild(first_kort);
+        first_kort = holder_kort.firstChild;
+    }
+}
