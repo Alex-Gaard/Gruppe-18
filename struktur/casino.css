@@ -50,6 +50,23 @@ h2{
     margin-left:2em;
     
 }
+#forsidebilde{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#centerbutton{
+    font-size: 1.5em;
+    margin: auto;
+    text-align: center;
+}
+.centerbutton{
+    float: none;
+}
+a{
+    color: inherit;
+    text-decoration:none;
+}
 
 /* START SPILLEROMRÅDE: */
 hr {clear: both; border: 1px solid #000}

@@ -7,14 +7,28 @@
         <script src="./kode/manipulere_spilleromraade.js"></script>
     </head>
     <body>
-<?php
+<header>
+    <a href="index.php"><h1>lectureGaming</h1></a>
+    <nav>
+        <h1>Main Menu</h1>
+        <ul>
+            <li><a href="struktur/blackjack.php">lectureBlackJack</a></li>
+            <li><a href="struktur/highscores.php">High Scores</a></li>
+            <li><a href="struktur/about_us.php">About Us</a></li>
+        </ul>
+        <hr/>
+    </nav>
+</header>
+        <h2>Welcome to lectureBlackjack</h2>
+        <h2>~ When the lecture calls for it ~</h2><br>
+        <img src="lectureGames_forside.gif" id="forsidebilde"><br><br>
+        <div id="centerbutton">
+            <button class="centerbutton">Logg inn</button>
+            <button class="centerbutton">Tutorial/Help</button><br><br>
+        </div> 
+   <?php
 session_start();
-
-//hver del av siden ligger i egen fil slik at flere kan redigere simultant
-include './struktur/header.html';
-include './struktur/spill.php';
 include './struktur/footer.html';
-
 ?>
     </body>
 </html>
