@@ -89,30 +89,44 @@ function getInfo(){
 
 function getName(){
 	
-	var name = "Sindres";
+	var name = prompt("Enter name to search for");
 	
 	alert( getCookieName( name ) );
 }
 
 function getPassword(){
 
-	var x = "Sindres";
+	var name = prompt("Enter the user you want the password for");
 	
-	alert( getCookiePassword( x ) );
+	alert( getCookiePassword( name ) );
 	
 }
 
 function getScore(){
+	
+	var name = prompt("Enter the user you want the score for");
+	
+	alert( getCookieScore( name ) );
 
-	alert( getCookieScore("Sindres") );
+}
+
+function getScoreIndex(){
+	
+	var name = prompt( "Enter the user you want the score index of" );
+	
+	alert( getCookieScoreIndex( name ) );
 
 }
 
 function setScore(){
 	
-	var name = "Sindre";
-	var score = 200;
+	var name = prompt( "Select user" );
+	var score = prompt( "Give selected score to user");
 	
 	setCookieScore( name, score );
+	
+	alert ( document.cookie.toString() );
+	
+	
 
 }
