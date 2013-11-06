@@ -2,9 +2,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title>lectureBlackjack</title>
+        <link rel="stylesheet" type="text/css" href="./casino.css" title="Casino">
     </head>
     <body>
+        <?php
+session_start();
+include 'header.html';
+?>
         <article>
             <h1>Dealer:</h1>
             <div id="dealer-space">
@@ -37,5 +42,8 @@
             <button id="Hold">Hold</button>
             <button id="Double-Down">Double Down</button>
         </article>
+        <?php
+include 'footer.html';
+?>
     </body>
 </html>
