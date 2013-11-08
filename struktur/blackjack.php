@@ -18,7 +18,7 @@ include 'header.html';
             <div id="cards_sum_dealer"></div>
             <fieldset id="stake_boks" class="cash">
                 <legend>Stake</legend>
-                $<span id="stake_player_1"></stake>
+                $<span id="stake_player_1">—</span>
             </fieldset>
             
             <h1>You:</h1>
