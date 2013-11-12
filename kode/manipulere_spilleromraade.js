@@ -106,12 +106,6 @@ function flipCard(){
     document.getElementById('dealer_space').removeChild(bakside);   //fjerner kortet
     var skjult_kort = document.getElementById('hidden_card');       //referanse til det skjulte kortet
     skjult_kort.setAttribute('id', 'dealer_card_2');                //dealer har ALLTID to kort når kortene snus
-    //vise dealerens sum nå når kortene til dealer er vist
-    var dealer_sum_boks = document.getElementById('cards_sum_dealer');
-    var dealer_sum = dSum(); //kaller funksjon i spillmotor
-    var ny_tekst_node = document.createTextNode(dealer_sum);
-    var gammel_tekst_node = dealer_sum_boks.firstChild;
-    dealer_sum_boks.replaceChild(ny_tekst_node, gammel_tekst_node);
 }
 
 //rydde bordet for kort
@@ -138,5 +132,67 @@ function ryddBordet(){
     while(first_kort){
         holder_kort.removeChild(first_kort);
         first_kort = holder_kort.firstChild;
+    }
+}
+
+/*-------------------------------------------------------------------*/
+/* Endre hvilke knapper som skal være tegnet til enhver tid: --------*/
+/* 1 = Bare vis deal-knappen ----------------------------------------*/
+/* 2 = Vis hit + hold + double down ---------------------------------*/
+/* 3 = Vis Spill igjen-knappen --------------------------------------*/
+/*-------------------------------------------------------------------*/
+
+function buttonsBlackJack(n){
+    var knappe_holder = document.getElementById('button_holder');
+    //fjerne ALLE knapper
+    var first_knapp = knappe_holder.firstChild;
+    while (first_knapp){
+        knappe_holder.removeChild(first_knapp);
+        first_knapp = knappe_holder.firstChild;
+    }
+    //tegne NYE knapper
+    switch (n){
+        case 1:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'deal');
+            knappe_node.setAttribute('onclick', 'deal()');
+            var knappetekst = document.createTextNode("Deal!");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        case 2:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'hit');
+            knappe_node.setAttribute('onclick', 'startHit()');
+            var knappetekst = document.createTextNode("Hit");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'stand');
+            knappe_node.setAttribute('onclick', 'hold()');
+            var knappetekst = document.createTextNode("Stand");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'double_down');
+            knappe_node.setAttribute('onclick', 'doubleDown()');
+            var knappetekst = document.createTextNode("Double Down");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        case 3:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'restart');
+            knappe_node.setAttribute('onclick', 'restart()');
+            var knappetekst = document.createTextNode("Play again");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        default:
+            alert("Feil inne i knappefunksjonen.");
+            restart();
+            break;
     }
 }
