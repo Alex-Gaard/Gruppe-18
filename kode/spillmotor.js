@@ -1,4 +1,3 @@
-
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -363,6 +362,7 @@ function restart() {
 	}
 	
     valgTemp = 0;
+    antallHits = 0;
     spiller_kort_nr = 0;
 	dealer_kort_nr = 0;
     won = null;
