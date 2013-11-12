@@ -354,11 +354,14 @@ function restart() {
 
     for(var i = 0; i < playerHand.length; i++){
         playerHand[i] = 0;
-        dealerHand[i] = 0;
         }
 		
+    for(var i = 0; i < dealerHand.length; i++){
+        dealerHand[i] = 0;
+	}
+		
     for(var i = 0; i < valgt.length; i++){
-	    valgt[i] = 0;
+	valgt[i] = 0;
 	}
 	
     valgTemp = 0;
