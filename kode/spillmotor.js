@@ -1,4 +1,3 @@
-
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -304,6 +303,7 @@ function hold() {
 
     
     flipCard();
+    $("#dealerSum").text(dSum());
    
 	sjekkDealer();
 		
@@ -361,8 +361,9 @@ function restart() {
     valgTemp = 0;
     spiller_kort_nr = 0;
     won = false;
-	equal = false;
-	fortsett = 0;
+    stop = false;
+    equal = false;
+    fortsett = 0;
     
 
 }//end of restart
