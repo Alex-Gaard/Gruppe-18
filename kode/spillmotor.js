@@ -1,3 +1,4 @@
+
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -9,8 +10,8 @@ var dKortID = new Array();
 
 //REGLER
 //må testes mer
-var card5 = true; 
-var soft17 = true;
+var card5 = false; 
+var soft17 = false;
 
 
 var stop = false;
@@ -254,10 +255,13 @@ function deal(){
     if(pSum() == 21){
         alert("you won");
         won = true;
+		buttonsBlackJack(3);
         }
     resultat();
 	
 }//end of if
+
+buttonsBlackJack(2);
 	
 }//end of deal
 
@@ -303,7 +307,7 @@ function hold() {
 
     
     flipCard();
-    $("#dealerSum").text(dSum());
+	$("#dealerSum").text(dSum());
    
 	sjekkDealer();
 		
@@ -311,7 +315,7 @@ function hold() {
         kortTemp = kort[hit()];
 	    settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
 	    dealerHand[2] = cleanse(kortTemp);
-	    $("#dealerSum").text(dSum());
+	    $("#dealerSum").text(dSum());	
 		}
    
 
@@ -323,6 +327,7 @@ function hold() {
 		dealerHand[3] = cleanse(kortTemp);
 		$("#dealerSum").text(dSum());
         }
+		
 
     sjekkDealer();
 
@@ -335,8 +340,7 @@ function hold() {
         }
 
     sjekkDealer();
-
-
+	
     resultat();
 }//end of hold
 
@@ -360,10 +364,12 @@ function restart() {
 	
     valgTemp = 0;
     spiller_kort_nr = 0;
-    won = false;
-    stop = false;
-    equal = false;
-    fortsett = 0;
+	dealer_kort_nr = 0;
+    won = null;
+	equal = false;
+	stop = false;
+	fortsett = 0;
+	buttonsBlackJack(1);
     
 
 }//end of restart
@@ -459,19 +465,27 @@ function resultat(){
     if(won == true && pSum() !=  21){
         cash += bet * 2;
         $("#bank_player").text(cash);
+		buttonsBlackJack(3);
         }
-	else if(won == true && card5 == true && playerHand.length == 5){
+	else if(card5 == true && playerHand.length == 5){
 	    cash += bet * 2;
         $("#bank_player").text(cash);
+		won = true;
+		buttonsBlackJack(3);
 	    }
 	else if(won == true && pSum() ==  21){
 		cash += Math.ceil(bet * 3/2);
 		$("#bank_player").text(cash);
+		buttonsBlackJack(3);
 		}
 	else if(equal == true ){
 	    cash += bet;
 	    $("#bank_player").text(cash);
-	}
+		buttonsBlackJack(3);
+	    }
+	else if(won == false){
+	    buttonsBlackJack(3);
+	    }
 	
 
 }//end of resultat
@@ -777,6 +791,18 @@ $.getJSON('list.json', function(data){
 	  utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
 	  }
 	  
+       alert(utskrift);
+  
+   })//:
+}
+
+/*-------------------------------------------------------------------*/
+/* Endre hvilke knapper som skal være tegnet til enhver tid: --------*/
+/* 1 = Bare vis deal-knappen ----------------------------------------*/
+/* 2 = Vis hit + hold + double down ---------------------------------*/
+/* 3 = Vis Spill igjen-knappen --------------------------------------*/
+/*-------------------------------------------------------------------*/
+
 function buttonsBlackJack(n){
     var knappe_holder = document.getElementById('button_holder');
     //fjerne ALLE knapper
@@ -831,9 +857,3 @@ function buttonsBlackJack(n){
             break;
     }
 }
-       alert(utskrift);
-  
-   })//:
-}
-
-
