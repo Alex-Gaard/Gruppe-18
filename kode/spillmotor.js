@@ -777,25 +777,63 @@ $.getJSON('list.json', function(data){
 	  utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
 	  }
 	  
+function buttonsBlackJack(n){
+    var knappe_holder = document.getElementById('button_holder');
+    //fjerne ALLE knapper
+    var first_knapp = knappe_holder.firstChild;
+    while (first_knapp){
+        knappe_holder.removeChild(first_knapp);
+        first_knapp = knappe_holder.firstChild;
+    }
+    //tegne NYE knapper
+    switch (n){
+        case 1:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'deal');
+            knappe_node.setAttribute('onclick', 'deal()');
+            var knappetekst = document.createTextNode("Deal!");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        case 2:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'hit');
+            knappe_node.setAttribute('onclick', 'startHit()');
+            var knappetekst = document.createTextNode("Hit");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'stand');
+            knappe_node.setAttribute('onclick', 'hold()');
+            var knappetekst = document.createTextNode("Stand");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'double_down');
+            knappe_node.setAttribute('onclick', 'doubleDown()');
+            var knappetekst = document.createTextNode("Double Down");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        case 3:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'restart');
+            knappe_node.setAttribute('onclick', 'restart()');
+            var knappetekst = document.createTextNode("Play again");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+        default:
+            alert("Feil inne i knappefunksjonen.");
+            restart();
+            break;
+    }
+}
        alert(utskrift);
   
    })//:
 }
 
-/*
-function sjekkScore(){
 
-$.getJSON('list.json', function(data){
-	
-	for(var i = 0; i < data.players.length; i++){
-	    if( score > data.player[i].highscore){
-	        alert("Highscore");
-		    break;
-	        }
-	  
-	    }
-	 
-   })//:
-   
-}
-*/
