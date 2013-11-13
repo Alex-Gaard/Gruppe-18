@@ -54,7 +54,9 @@ function settInnKort(kort_eier, kort_id, kort_navn){
         // så må det nye kortet plasseres inn i DOM (vi har flyttet id 1 til 2 over)
         nytt_bildekort.setAttribute('id', 'dealer_card_1');
         var hvor_vil_vi_ha_kortet = document.getElementById('dealer_space');
-        hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        setTimeout(function(){
+            hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        },300);
         dealer_kort_nr ++;
     }
     
@@ -94,7 +96,9 @@ function settInnKort(kort_eier, kort_id, kort_navn){
         // så må det nye kortet plasseres inn i DOM (vi har flyttet id 1 til 2 over)
         nytt_bildekort.setAttribute('id', 'player_card_1');
         var hvor_vil_vi_ha_kortet = document.getElementById('player_space');
-        hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        setTimeout(function(){
+            hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        },300);
         spiller_kort_nr ++;
     }
     else alert('Ikke angitt hvor kortet skal tegnes: dealer/ player ...');
