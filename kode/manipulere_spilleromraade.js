@@ -194,6 +194,21 @@ function buttonsBlackJack(n){
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
             break;
+        case 4:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'restart');
+            knappe_node.setAttribute('onclick', 'restart()');
+            var knappetekst = document.createTextNode("Play again");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'quit');
+            knappe_node.setAttribute('onclick', 'quit()');
+            var knappetekst = document.createTextNode("Quit");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
         default:
             alert("Feil inne i knappefunksjonen.");
             restart();
