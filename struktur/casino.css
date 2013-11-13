@@ -69,14 +69,28 @@ a{
 }
 
 /* START SPILLEROMRÅDE: */
-hr {clear: both; border: 1px solid #000}
 article h1 {
     margin: 0;
-    margin-left: .7em;
+    font-size: 1.2em;
+}
+article h2{
+    margin: 0;
+    font-size: 1.0em;
 }
 article {
-    background-color: #393;
-    height: 40em;
+    background-color: #fff;
+    padding: 1em;
+}
+#hr_bottom {border: 0;}
+
+#spill_resultat {
+    clear: both;
+    width: 10em;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 2em;
+    background-color: #fff;
 }
 .card {
     width: 10em;
@@ -97,6 +111,8 @@ article {
     float: left;
     margin-right: -6.5em;
 }
+#hidden_card {display: none;}
+
 /*bokser med sum av kort*/
 .cards_sum {
     border: 1px solid #000;
@@ -124,12 +140,10 @@ legend {font-size: .5em;}
     padding: .5em;
     text-align: center;
 }
-#stake_player1 {
-    margin-left: .3em;
+#stake_boks {
     float: left;
 }
-#bank_player1 {
-    margin-right: .3em;
+#bank_boks {
     float: right;
 }
 /* knappene til spilleren */
@@ -137,11 +151,19 @@ button {
     border: 2px solid #fff;
     background-color: #000;
     color: #fff;
-    font-size: 1.5em;
+    font-size: 2.5em;
     float: left;
 }
-#Hit {
+#button_holder {
     clear: both;
     margin-left: .3em;
+}
+
+@media screen and (max-width:500px) { /*only if screen has less than 500px width, ie smart phones*/
+    button {font-size: 3.5em;}
+    nav ul li {
+        border: 1px solid #fff;
+        font-size: 2.5em;
+    }
 }
 /* SLUTT SPILLEROMRÅDE */
