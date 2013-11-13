@@ -13,6 +13,7 @@ var dKortID = new Array();
 var card5 = false; 
 var soft17 = false;
 
+var place;
 
 var stop = false;
 
@@ -32,9 +33,11 @@ var won;
 var equal;
 var fortsett = 0;
 
-var antallHits = 0;
+var playerHits = 2;
+var dealerHits = 2;
+
 var alt;
-//antallHits må settes til 0 etter runden er over
+//playerHits må settes til 0 etter runden er over
 
 var spiller_kort_nr = 0; //hvor mange kort er delt ut til spiller
 var dealer_kort_nr = 0; //hvor mange kort er delt ut til dealer
@@ -232,30 +235,20 @@ function deal(){
 		
     if(fortsett == 1){
 
-   
-    kortTemp = kort[hit()];
-    settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
-	dealerHand[0] = cleanse(kortTemp);
+    for(var i = 0; i < 2; i++){
+	    kortTemp = kort[hit()];
+        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
+	    dealerHand[i] = cleanse(kortTemp);
 	
-	
-    kortTemp = kort[hit()];
-    settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-	playerHand[0] = cleanse(kortTemp);
-	
-	kortTemp = kort[hit()];
-    settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
-	dealerHand[1] = cleanse(kortTemp);
+	    kortTemp = kort[hit()];
+        settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
+	    playerHand[i] = cleanse(kortTemp);
+	   
+	}
 	$("#dealerSum").text(dSum() - dealerHand[0]);
-	
-
-	kortTemp = kort[hit()];
-    settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-	playerHand[1] = cleanse(kortTemp);
 	$("#playerSum").text(pSum());
-	
-	
-	
-	
+   
+    
     if(pSum() == 21){
         display(1);
         won = true;
@@ -276,29 +269,12 @@ buttonsBlackJack(2);
 
 function startHit() {
    
+    kortTemp = kort[hit()];
+    settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
+	playerHand[playerHits] = cleanse(kortTemp);
+	$("#playerSum").text(pSum());
+    playerHits++;
 
-    if(antallHits == 0){
-        kortTemp = kort[hit()];
-		settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-		playerHand[2] = cleanse(kortTemp);
-		$("#playerSum").text(pSum());
-        antallHits++;
-
-    }else if(antallHits  == 1){
-        kortTemp = kort[hit()];
-        settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-		playerHand[3] = cleanse(kortTemp);
-		$("#playerSum").text(pSum());
-		antallHits++;
-
-    }else if(antallHits  == 2){
-        kortTemp = kort[hit()];
-        settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-		playerHand[4] = cleanse(kortTemp);
-		$("#playerSum").text(pSum());
-		antallHits++;
-        }
-    
     if(pSum() > 21){
         display(2);
         won = false;
@@ -311,55 +287,35 @@ function startHit() {
 }//end of startHit
 
 function hold() {
-   
-     
+  
     flipCard();
 	$("#dealerSum").text(dSum());
    
 	sjekkDealer();
 		
-	if(dSum() < 21 && stop == false){
-        kortTemp = kort[hit()];
-	    settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
-	    dealerHand[2] = cleanse(kortTemp);
-	    $("#dealerSum").text(dSum());	
-		}
-   
-
-    sjekkDealer();
-
-    if(dSum() < 21 && stop == false){
-        kortTemp = kort[hit()];
-        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
-		dealerHand[3] = cleanse(kortTemp);
-		$("#dealerSum").text(dSum());
-        }
-		
-
-    sjekkDealer();
-
+	while(stop == false){
+	    if(dSum() < 21 && stop == false){
+            kortTemp = kort[hit()];
+	        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
+	        dealerHand[dealerHits] = cleanse(kortTemp);
+	        $("#dealerSum").text(dSum());	
+			dealerHits++;
+		    }
 			
-    if(dSum() < 21 && stop == false){
-        kortTemp = kort[hit()];
-        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
-		dealerHand[4] = cleanse(kortTemp);
-		$("#dealerSum").text(dSum());
-        }
-		/*
-    var k = "";
-	for(var i = 0; i < dealerHand.length; i++){
-	    k += dealerHand[i] + "  ";
-	}	
-		
-	alert(k);
-		*/
-    sjekkDealer();
+		sjekkDealer();
+	    }
 	
     resultat();
 }//end of hold
 
 function restart() {
     var elem2 = document.getElementById("spill_resultat");  
+	
+	if(checkScore() == true){
+	    
+	
+	}
+	
 	
     ryddBordet();
    
@@ -380,7 +336,8 @@ function restart() {
 	    valgt[i] = 0;
 	}
 	
-	antallHits = 0;
+	playerHits = 2;
+	dealerHits = 2;
     valgTemp = 0;
     spiller_kort_nr = 0;
 	dealer_kort_nr = 0;
@@ -524,9 +481,9 @@ function doubleDown(){
 		
 		kortTemp = kort[hit()];
         settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-		playerHand[antallHits + 2] = cleanse(kortTemp);
+		playerHand[playerHits + 2] = cleanse(kortTemp);
 		$("#playerSum").text(pSum());
-		antallHits = 3;
+		playerHits = 3;
 		
 		if(pSum() < 21){
 		    hold();
@@ -816,16 +773,36 @@ $.ajax({
 
 function getScore(){
 
-$.getJSON('list.json', function(data){
-      var utskrift = "";
+    $.getJSON('list.json', function(data){
+        var utskrift = "";
 	
-	  for(var i = 0; i < data.players.length; i++){
-	  utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
-	  }
+	    for(var i = 0; i < data.players.length; i++){
+	        utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
+	        }
 	  
-       alert(utskrift);
+            alert(utskrift);
+   })//:
+}
+
+function checkScore(){
+
+    $.getJSON('list.json', function(data){
+        var inHighscore = false;
+		
+	    for(var i = 0; i < data.players.length; i++){
+	        if(cash > data.players[i].highscore){
+			    inHighscore = true;
+				place = i + 1;
+				break;
+			    }else{
+				place = -1;
+				}
+	        } 
+	  
+       return inHighscore;
   
    })//:
+
 }
 
 //
