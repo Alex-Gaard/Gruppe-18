@@ -1,3 +1,4 @@
+
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -38,8 +39,11 @@ var alt;
 var spiller_kort_nr = 0; //hvor mange kort er delt ut til spiller
 var dealer_kort_nr = 0; //hvor mange kort er delt ut til dealer
 
+
+
 var elem = document.getElementById("bet");
 
+ 
 var kort_array_navn = 
     {   c14: "Ace of Clubs", 
         c2: "2 of Clubs", 
@@ -200,7 +204,8 @@ function hit() {
 function deal(){
     
     //antStokk();
-
+    
+	
     var elem = document.getElementById("input");
 	
 	try{
@@ -252,10 +257,14 @@ function deal(){
 	
 	
     if(pSum() == 21){
-        alert("you won");
+        display(1);
         won = true;
 		buttonsBlackJack(3);
+		resultat();
+		//er det greit å bruke return for å stoppe funksjonen?
+		return null;
         }
+		
     resultat();
 	
 }//end of if
@@ -291,20 +300,19 @@ function startHit() {
         }
     
     if(pSum() > 21){
-        alert("you lost");
+        display(2);
         won = false;
         }
     else if(pSum() == 21 || playerHand.length == 5 && card5 == true){
-        alert("you won");
+        display(1);
         won = true;
         }
     resultat();
 }//end of startHit
 
 function hold() {
-
-
-    
+   
+     
     flipCard();
 	$("#dealerSum").text(dSum());
    
@@ -337,14 +345,22 @@ function hold() {
 		dealerHand[4] = cleanse(kortTemp);
 		$("#dealerSum").text(dSum());
         }
-
+		/*
+    var k = "";
+	for(var i = 0; i < dealerHand.length; i++){
+	    k += dealerHand[i] + "  ";
+	}	
+		
+	alert(k);
+		*/
     sjekkDealer();
 	
     resultat();
 }//end of hold
 
 function restart() {
-    
+    var elem2 = document.getElementById("spill_resultat");  
+	
     ryddBordet();
    
 
@@ -356,16 +372,16 @@ function restart() {
         playerHand[i] = 0;
         }
 		
-    for(var i = 0; i < dealerHand.length; i++){
-        dealerHand[i] = 0;
+	for(var i = 0; i < dealerHand.length; i++){
+	    dealerHand[i] = 0;
 	}
 		
     for(var i = 0; i < valgt.length; i++){
-	valgt[i] = 0;
+	    valgt[i] = 0;
 	}
 	
+	antallHits = 0;
     valgTemp = 0;
-    antallHits = 0;
     spiller_kort_nr = 0;
 	dealer_kort_nr = 0;
     won = null;
@@ -373,6 +389,7 @@ function restart() {
 	stop = false;
 	fortsett = 0;
 	buttonsBlackJack(1);
+	elem2.innerHTML = "";
     
 
 }//end of restart
@@ -518,13 +535,13 @@ function doubleDown(){
 		else if(pSum() > 21){
 		    won = false;
 			stop = true;
-			alert("you have lost");
+			display(2);
 			resultat();
 		    }
 	    else{
 		    won = true;
 			stop = true;
-			alert("you have won");
+			display(1);
 			resultat();
 		    }
 		
@@ -552,21 +569,21 @@ function sjekkDealer(){
 		    stop = true;
 			if(dSum() > pSum()  && dSum() <= 21){
 			    won = false;
-				alert("you have lost");
+				display(2);
 			    }
 			else if(dSum() < pSum() || dSum() > 21){
 				won = true;
-				alert("you have won");
+				display(1);
 				}
 			else if(dSum() <= 21 && dealerHand.length == 5 && card5 == true){
-	            alert("you have lost");
+	            display(2);
                 won = false;
                 stop = true;
 	            }
 			else{
 				won = false;
 				equal = true;
-				alert("it is a tie");
+				display(3);
 				}
 			
 				
@@ -575,21 +592,21 @@ function sjekkDealer(){
 			    stop = true;
 				if(dSum() > pSum() && dSum() <= 21){
 				    won = false;
-				    alert("you have lost");
+				    display(2);
 				    }
 				else if(dSum() == pSum()){
 				    won = false;
 					equal = true;
-					alert("it is a tie");
+					display(3);
 	
 				    }
 				else if(dSum() > 21){
 				    won = true;
-					alert("you have won");
+					display(1);
 				
 				    }
 				else if(dSum() <= 21 && dealerHand.length == 5 && card5 == true){
-	                alert("you have lost");
+	                display(2);
                     won = false;
                     stop = true;
 	                }
@@ -601,17 +618,17 @@ function sjekkDealer(){
 	}else{//soft17 == false
 	
     if(dSum() <= 21 && dSum() > pSum() && stop == false){
-        alert("you have lost");
+        display(2);
         won = false;
         stop = true;
 		}
     else if(dSum() > 21 && stop == false){
         stop = true;
         won = true;
-        alert("you have won");
+        display(1);
         }
 	else if(dealerHand.length == 5 && card5 == true){
-	    alert("you have lost");
+	    display(2);
         won = false;
         stop = true;
 	    }
@@ -623,6 +640,21 @@ function sjekkDealer(){
 
 
 }//end of sjekkDealer
+
+function display(f){
+    var elem2 = document.getElementById("spill_resultat");  
+	
+	if(f == 1){ 
+		elem2.innerHTML = "You have won!";
+	    }
+	else if(f == 2){
+		elem2.innerHTML = "You have lost!";
+	    }
+	else{
+	    elem2.innerHTML = "It is a draw!";
+	    }
+		
+}
 
 
 function settInnKort(kort_eier, kort_id, kort_navn){
@@ -673,8 +705,10 @@ function settInnKort(kort_eier, kort_id, kort_navn){
         // så må det nye kortet plasseres inn i DOM (vi har flyttet id 1 til 2 over)
         nytt_bildekort.setAttribute('id', 'dealer_card_1');
         var hvor_vil_vi_ha_kortet = document.getElementById('dealer_space');
-        hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
-        dealer_kort_nr ++;
+        setTimeout(function(){
+			hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        }, 300);
+		dealer_kort_nr ++;
     }
     
     /*------------------------------------------------------*/
@@ -713,7 +747,9 @@ function settInnKort(kort_eier, kort_id, kort_navn){
         // så må det nye kortet plasseres inn i DOM (vi har flyttet id 1 til 2 over)
         nytt_bildekort.setAttribute('id', 'player_card_1');
         var hvor_vil_vi_ha_kortet = document.getElementById('player_space');
-        hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        setTimeout(function(){
+			hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
+        }, 300);
         spiller_kort_nr ++;
     }
     else alert('Ikke angitt hvor kortet skal tegnes: dealer/ player ...');
@@ -727,13 +763,6 @@ function flipCard(){
     skjult_kort.setAttribute('id', 'dealer_card_2');                //dealer har ALLTID to kort når kortene snus
     //vise dealerens sum nå når kortene til dealer er vist
 	
-	/*
-    var dealer_sum_boks = document.getElementById('cards_sum_dealer');
-    var dealer_sum = dSum(); //kaller funksjon i spillmotor
-    var ny_tekst_node = document.createTextNode(dealer_sum);
-    var gammel_tekst_node = dealer_sum_boks.firstChild;
-    dealer_sum_boks.replaceChild(ny_tekst_node, gammel_tekst_node);
-	*/
 }
 
 function ryddBordet(){
@@ -799,6 +828,10 @@ $.getJSON('list.json', function(data){
    })//:
 }
 
+//
+//Slutt på AJAX
+//
+
 /*-------------------------------------------------------------------*/
 /* Endre hvilke knapper som skal være tegnet til enhver tid: --------*/
 /* 1 = Bare vis deal-knappen ----------------------------------------*/
@@ -860,3 +893,8 @@ function buttonsBlackJack(n){
             break;
     }
 }
+
+
+
+
+
