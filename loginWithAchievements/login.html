@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+	<title>Login forms and validation test</title>
+	<script charset="utf-8" type="text/javascript" src="login.js"></script>
+	<script charset="utf-8" type="text/javascript" src="cookie_single.js"></script>
+	<script charset="utf-8" type="text/javascript" src="loggedinas.js"></script>
+  </head>
+  
+  <body>
+    <h1>Achievements:</h1>
+	<div>
+	  <img id="AC1G" src="img/medal_gold.jpg"></img>
+	  <img id="AC1S" src="img/medal_silver.jpg"></img>
+	  <img id="AC1B" src="img/medal_bronze.jpg"></img>
+	  <img id="AC2G" src="img/medal_gold.jpg"></img>
+	  <img id="AC2S" src="img/medal_silver.jpg"></img>
+	  <img id="AC2B" src="img/medal_bronze.jpg"></img>
+	</div>
+	
+	<script>
+		var ac1g = document.getElementById( "AC1G" );
+		var ac1s = document.getElementById( "AC1S" );
+		var ac1b = document.getElementById( "AC1B" );
+		
+		var ac2g = document.getElementById( "AC2G" );
+		var ac2s = document.getElementById( "AC2S" );
+		var ac2b = document.getElementById( "AC2B" );
+		
+		ac1g.style.display = "none";
+		ac1s.style.display = "none";
+		ac1b.style.display = "none";
+		
+		ac2g.style.display = "none";
+		ac2s.style.display = "none";
+		ac2b.style.display = "none";
+	
+	</script>
+	
+	<form name="login" onsubmit="validateForm( namefield.value, passwordfield.value )" method="POST" action="javascript:void(0)">
+	
+	  Name:     <input type="text" name="namefield"></input><br>
+	  Password: <input type="password" name="passwordfield"></input>
+	            <input type="submit" value="Log in">
+	
+	</form>
+	
+	<button onclick="deleteCookie()">
+	  Delete Cookie
+	</button>
+	
+	<button onclick="loggedInAs()">
+	  Get Current User
+	</button>
+	
+	<button onclick="alert( getLoggedInAsScore() )">
+	  Get Score Current User
+	</button>
+	
+	<button onclick="alert( buildAchievements( getLoggedInAs() ) )">
+	  Get Achievements Current User
+	</button>
+	
+	<button onclick="getInfo()">
+	  Get Info
+	</button>
+	
+	<button onclick="getName()">
+	  Check Name
+	</button>
+	
+	<button onclick="getPassword()">
+	  Check Password
+	</button>
+	
+	<button onclick="getScore()">
+	  Check score
+	</button>
+	
+	<button onclick="getScoreIndex()">
+	  Get Score Index
+	</button>
+	
+	<button onclick="setScore()">
+	  Set score
+	</button>
+	
+	<button onclick="getScoreInt()">
+	  Get int format of score
+	</button>
+	
+	<button onclick="getAchievement()">
+	  Get achievement
+	</button>
+	
+
+	  
+
+  </body>
+
+
+</html>
