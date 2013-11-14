@@ -1,3 +1,4 @@
+
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -11,6 +12,33 @@ var dKortID = new Array();
 //må testes mer
 var card5 = false; 
 var soft17 = false;
+var nrDecks = 1;
+
+if(localStorage["5CardWin"] == undefined && localStorage["soft_17"] == undefined && localStorage["nr_Decks"] == undefined ){
+    localStorage["5CardWin"] = card5;
+    localStorage["soft_17"] = soft17;
+	localStorage["nr_Decks"] = nrDecks;
+    }
+
+
+function setSettings(){
+
+if(localStorage["5CardWin"] == "true"){
+card5 = true;
+}else{
+card5 = false;
+}
+
+if(localStorage["soft_17"] == "true"){
+soft17 = true;
+}else{
+soft17 = false;
+}
+
+nrDecks = parseInt(localStorage["nr_Decks"]);
+
+}
+
 
 //variabler til checkScore
 var place;
@@ -28,7 +56,24 @@ var kortTemp = 0;
 var finnes = true;
 
 
-var cash = 200;
+//var cash = 200;
+
+
+function setCash(){
+
+    if( localStorage["cash"] == undefined || localStorage["cash"] == "" || localStorage["cash"] < 200){
+
+        localStorage.setItem("cash", 200);
+
+    }else{
+
+        $("#bank_player").text(localStorage["cash"]);
+
+        }
+
+}//end of setCash
+
+
 var bet = 0;
 
 var won;
@@ -38,9 +83,8 @@ var fortsett = 0;
 var playerHits = 2;
 var dealerHits = 2;
 
-var alt;
-//playerHits må settes til 0 etter runden er over
 
+var alt;
 var spiller_kort_nr = 0; //hvor mange kort er delt ut til spiller
 var dealer_kort_nr = 0; //hvor mange kort er delt ut til dealer
 
@@ -163,24 +207,23 @@ kort[50] = "s12";
 kort[51] = "s13";
 
 
-function antStokk(){
+function nrOfDecks(){
 var nyKort = new Array();
-var antStokkElem = document.getElementById("antStokker");
 
 if(kort.length > 52){
 nyKort = kort.slice(0,52);
 kort = nyKort;
 }
 
-if(antStokkElem.value != "" && kort.length < 53){
+if(nrDecks != 1 && kort.length < 53){
     nyKort = kort;
-    for(var i = 0; i < antStokkElem.value; i++){
+    for(var i = 0; i < nrDecks - 1; i++){
         kort = kort.concat(nyKort);
         }
 
     }
 
-}//end of antStokk
+}//end of nrOfDecks
 
 	
 	
@@ -207,33 +250,41 @@ function hit() {
 
 
 function deal(){
-    
-	//antStokk();
 	
-    var elem = document.getElementById("input");
+    var elem = document.getElementById("innsats");
 	var elem2 = document.getElementById("spill_resultat");
 	
 	
+
+	
 	try{
         if(isNaN(parseInt(elem.value))) throw "This is not a number";
- 
-            if(parseInt(elem.value) < 1 || parseInt(elem.value) > cash){
+		
+            if(parseInt(elem.value) < 1 || parseInt(elem.value) > parseInt(localStorage["cash"])){
 			    
                 elem2.innerHTML = "Bet cannot be higher than the bank, or 0 and lower";
 				elem.value = "";
 				elem.focus();
                 }else{
+				    setSettings();
+				    nrOfDecks();
 				    elem2.innerHTML = "";
                     bet = parseInt(elem.value);
 					fortsett = 1;
-                    cash -= bet;
+                    
+				    var cashTemp = parseInt(localStorage["cash"]);
+                    cashTemp -= bet;
+					localStorage.setItem("cash", cashTemp);
+					
+					buttonsBlackJack(2);
 					$("#stake_player").text(bet);
-	                $("#bank_player").text(cash);
+	                $("#bank_player").text(cashTemp);
 
                     }
  
     }catch(e){
-        elem2.innerHTML = "Please enter a number";
+	    alert(elem.value);
+        elem2.innerHTML = "Please enter a valid number";
         elem.value = "";
 		elem.focus();
         }
@@ -259,15 +310,14 @@ function deal(){
         won = true;
 		buttonsBlackJack(3);
 		resultat();
-		//er det greit å bruke return for å stoppe funksjonen?
-		return null;
+		return;
         }
 		
     resultat();
 	buttonsBlackJack(2);
+
 	
 }//end of if
-
 
 	
 }//end of deal
@@ -338,7 +388,7 @@ function restart() {
 	    valgt[i] = 0;
 	}
 	
-	if(cash == 0){
+	if(parseInt(localStorage["cash"]) == 0){
 	    alert("Scoren din ble satt til 200");
 	    playerHits = 2;
 	    dealerHits = 2;
@@ -351,8 +401,8 @@ function restart() {
 	    fortsett = 0;
 	    buttonsBlackJack(1);
 	    elem2.innerHTML = "";
-		cash = 200;
-		$("#bank_player").text(cash);
+		localStorage.setItem("cash", 200);
+		$("#bank_player").text(localStorage["cash"]);
 		
 	
 	}else{
@@ -376,11 +426,13 @@ function restart() {
 
 function quit(){
 
-    if(cash == 0){
+    if(parseInt(localStorage["cash"]) == 0){
         window.location.replace("index.php");
     }else{
         postScore();
         }
+  
+
 }
 
 function cleanse(string){
@@ -470,35 +522,37 @@ function dSum(){
 
 
 function resultat(){
-       
+    var cashTemp = parseInt(localStorage["cash"]);
 	if(won == true && pSum() !=  21){
-        cash += bet * 2;
-        $("#bank_player").text(cash);
+        cashTemp += bet * 2;
+		localStorage.setItem("cash", cashTemp);
+        $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
         }
 	else if(card5 == true && playerHand.length == 5){
-	    cash += bet * 2;
-        $("#bank_player").text(cash);
+	    cashTemp += bet * 2;
+	    localStorage.setItem("cash", cashTemp);
+        $("#bank_player").text(cashTemp);
 		won = true;
 		buttonsBlackJack(3);
 	    }
 	else if(won == true && pSum() ==  21){
-		cash += Math.ceil(bet * 3/2);
-		$("#bank_player").text(cash);
+		cashTemp += Math.ceil(bet * 3/2);
+		localStorage.setItem("cash", cashTemp);
+        $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
 		}
 	else if(equal == true ){
-	    cash += bet;
-	    $("#bank_player").text(cash);
+	    cashTemp += bet;
+	    localStorage.setItem("cash", cashTemp);
+        $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
 	    }
-	else if(cash == 0 && won == false){
-	    //alert("game over");
+	else if(cashTemp == 0 && won == false){
 	    display(3);
 		buttonsBlackJack(4);
 	    }
 	else if(won == false){
-	    //alert("du tapte");
 	    display(2);
 	    buttonsBlackJack(3);
 	    }
@@ -513,11 +567,12 @@ function resultat(){
 
 
 function doubleDown(){
-    
-   if(cash >= bet && pSum() != 21 && playerHand.length < 5){
+   var cashTemp = parseInt(localStorage["cash"]);
+   if(cashTemp >= bet && pSum() != 21 && playerHand.length < 5){
 	
-	    cash -= bet;
-		$("#bank_player").text(cash);
+	    cashTemp -= bet;
+		localStorage.setItem("cash", cashTemp);
+		$("#bank_player").text(cashTemp);
 		
 	    bet *= 2;
 		$("#stake_player").text(bet);
@@ -802,7 +857,7 @@ function ryddBordet(){
 function postScore(){
 var navnElem = document.getElementById("navn");
 var name = navnElem.value;
-var score = cash;
+var score = parseInt(localStorage["cash"]);
 
 $.ajax({
 	    url: 'highscore.php',
@@ -810,7 +865,6 @@ $.ajax({
 		type: 'post',
 		data: 'name='+name+'&score='+score,
 		success: function(data){
-		    console.log(data.response);
 		    alert("Skåren din har blitt postet");
 		}
 	 
@@ -839,9 +893,9 @@ til spilleren
 function checkScore(){
 	var place = -1;
     $.getJSON("list.json", function(data){
-	   
+	var cashTemp = parseInt(localStorage["cash"]);
 	    for(var i = 0; i < data.players.length; i++){
-		    if(cash > data.players[i].highscore){
+		    if(cashTemp > data.players[i].highscore){
 			    place = i + 1;
 				inScore = true;
 				break;
@@ -940,8 +994,3 @@ function buttonsBlackJack(n){
             break;
     }
 }
-
-
-
-
-
