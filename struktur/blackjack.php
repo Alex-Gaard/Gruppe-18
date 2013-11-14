@@ -35,3 +35,5 @@
     <!-- slutt på område for kort og knapper -->
     <hr id="hr_bottom" />
 </article>
+<script> setCash(); </script>
+
