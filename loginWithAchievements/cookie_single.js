@@ -1,4 +1,3 @@
-
 //This function creates a cookie with username, password and startscore.
 function createCookie( name, password ){
 	
@@ -314,7 +313,10 @@ function setCookieScore( name, score ){
 		
 		//Used for setting a expiration date when the score is changed in the cookie.
 		var exDate = new Date();
-	    exDate.setDate( exDate.getDate() + 100 );
+	        exDate.setDate( exDate.getDate() + 100 );
+	        
+	        //Stores the achievements of the user in a variable.
+	        var achievement = getCookieAchievement( name );
 		
 		//Gets old score from the cookie
 		var oldScore = getCookieScore( name );
@@ -332,7 +334,7 @@ function setCookieScore( name, score ){
 		//Gets the password for the user.
 		var pword = getCookiePassword (name);
 		
-		document.cookie = " " + name + "=password!" + pword+ "!score!" + newScore + "!;" + "expires=" + exDate + ";";
+		document.cookie = " " + name + "=password!" + pword+ "!score!" + newScore + "!achieve!" + achievement + "!;" + "expires=" + exDate + ";";
 		
 		alert( document.cookie.toString() );
 		
