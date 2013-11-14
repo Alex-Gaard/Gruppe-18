@@ -13,7 +13,10 @@ var dKortID = new Array();
 var card5 = false; 
 var soft17 = false;
 
+//variabler til checkScore
 var place;
+var inScore = false;
+
 
 var stop = false;
 
@@ -206,20 +209,22 @@ function hit() {
 
 function deal(){
     
-    //antStokk();
-    
+	//antStokk();
 	
     var elem = document.getElementById("input");
+	var elem2 = document.getElementById("spill_resultat");
+	
 	
 	try{
-        //fungerer ikke hvis du skriver inn ting som 1 + 1 = 2 osv
         if(isNaN(parseInt(elem.value))) throw "This is not a number";
  
             if(parseInt(elem.value) < 1 || parseInt(elem.value) > cash){
-                elem.value = "Place a bet";
-                alert("Tallet du oppga er ikke godkjent :( ");
+			    
+                elem2.innerHTML = "Bet cannot be higher than the bank, or 0 and lower";
+				elem.value = "";
+				elem.focus();
                 }else{
-				    
+				    elem2.innerHTML = "";
                     bet = parseInt(elem.value);
 					fortsett = 1;
                     cash -= bet;
@@ -229,8 +234,9 @@ function deal(){
                     }
  
     }catch(e){
-        alert("Du oppga ikke et tall");
-        elem.value = "Vennligst skriv inn et tall";
+        elem2.innerHTML = "Please enter a number";
+        elem.value = "";
+		elem.focus();
         }
 		
     if(fortsett == 1){
@@ -248,7 +254,7 @@ function deal(){
 	$("#dealerSum").text(dSum() - dealerHand[0]);
 	$("#playerSum").text(pSum());
    
-    
+ 
     if(pSum() == 21){
         display(1);
         won = true;
@@ -259,10 +265,11 @@ function deal(){
         }
 		
     resultat();
+	buttonsBlackJack(2);
 	
 }//end of if
 
-buttonsBlackJack(2);
+
 	
 }//end of deal
 
@@ -284,6 +291,7 @@ function startHit() {
         won = true;
         }
     resultat();
+
 }//end of startHit
 
 function hold() {
@@ -306,16 +314,11 @@ function hold() {
 	    }
 	
     resultat();
+	
 }//end of hold
 
 function restart() {
     var elem2 = document.getElementById("spill_resultat");  
-	
-	if(checkScore() == true){
-	    
-	
-	}
-	
 	
     ryddBordet();
    
@@ -336,20 +339,52 @@ function restart() {
 	    valgt[i] = 0;
 	}
 	
-	playerHits = 2;
-	dealerHits = 2;
-    valgTemp = 0;
-    spiller_kort_nr = 0;
-	dealer_kort_nr = 0;
-    won = null;
-	equal = false;
-	stop = false;
-	fortsett = 0;
-	buttonsBlackJack(1);
-	elem2.innerHTML = "";
+	if(cash == 0){
+	    alert("Scoren din ble satt til 200");
+	    playerHits = 2;
+	    dealerHits = 2;
+        valgTemp = 0;
+        spiller_kort_nr = 0;
+	    dealer_kort_nr = 0;
+        won = null;
+	    equal = false;
+	    stop = false;
+	    fortsett = 0;
+	    buttonsBlackJack(1);
+	    elem2.innerHTML = "";
+		cash = 200;
+		$("#bank_player").text(cash);
+		
+	
+	}else{
+		playerHits = 2;
+	    dealerHits = 2;
+        valgTemp = 0;
+        spiller_kort_nr = 0;
+	    dealer_kort_nr = 0;
+        won = null;
+	    equal = false;
+	    stop = false;
+	    fortsett = 0;
+	    buttonsBlackJack(1);
+	    elem2.innerHTML = "";
+	    }
+	
+
     
 
 }//end of restart
+
+function quit(){
+
+    if(cash == 0){
+        window.location.place("index.php");
+    }else{
+        postScore();
+        }
+  
+
+}
 
 function cleanse(string){
     var string;
@@ -439,7 +474,7 @@ function dSum(){
 
 function resultat(){
        
-    if(won == true && pSum() !=  21){
+	if(won == true && pSum() !=  21){
         cash += bet * 2;
         $("#bank_player").text(cash);
 		buttonsBlackJack(3);
@@ -460,9 +495,21 @@ function resultat(){
 	    $("#bank_player").text(cash);
 		buttonsBlackJack(3);
 	    }
+	else if(cash == 0 && won == false){
+	    alert("game over");
+	    display(3);
+		buttonsBlackJack(4);
+	    }
 	else if(won == false){
+	    alert("du tapte");
+	    //display(2);
 	    buttonsBlackJack(3);
 	    }
+	
+
+	
+
+	checkScore();
 	
 
 }//end of resultat
@@ -470,7 +517,7 @@ function resultat(){
 
 function doubleDown(){
     
-    if(cash >= bet && pSum() != 21 && playerHand.length < 5){
+   if(cash >= bet && pSum() != 21 && playerHand.length < 5){
 	
 	    cash -= bet;
 		$("#bank_player").text(cash);
@@ -481,9 +528,8 @@ function doubleDown(){
 		
 		kortTemp = kort[hit()];
         settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
-		playerHand[playerHits + 2] = cleanse(kortTemp);
+		playerHand[playerHits] = cleanse(kortTemp);
 		$("#playerSum").text(pSum());
-		playerHits = 3;
 		
 		if(pSum() < 21){
 		    hold();
@@ -507,13 +553,13 @@ function doubleDown(){
 	}
 	
 	
-
-}
+}//end of doubleDown
 
 
 
 function sjekkDealer(){
-    var gotAce = false;
+ 
+	    var gotAce = false;
     for(var i = 0; i < dealerHand.length; i++){
 	    if(dealerHand[i] == 11){
 		    gotAce = true;
@@ -540,7 +586,7 @@ function sjekkDealer(){
 			else{
 				won = false;
 				equal = true;
-				display(3);
+				display(4);
 				}
 			
 				
@@ -554,7 +600,7 @@ function sjekkDealer(){
 				else if(dSum() == pSum()){
 				    won = false;
 					equal = true;
-					display(3);
+					display(4);
 	
 				    }
 				else if(dSum() > 21){
@@ -596,6 +642,7 @@ function sjekkDealer(){
 	
 
 
+   
 }//end of sjekkDealer
 
 function display(f){
@@ -606,6 +653,9 @@ function display(f){
 	    }
 	else if(f == 2){
 		elem2.innerHTML = "You have lost!";
+	    }
+	else if(f == 3){
+	    elem2.innerHTML = "Game over, press play again to play more, or press quit to exit the game";
 	    }
 	else{
 	    elem2.innerHTML = "It is a draw!";
@@ -780,29 +830,37 @@ function getScore(){
 	        utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
 	        }
 	  
-            alert(utskrift);
-   })//:
+        alert(utskrift);
+   });
 }
+/*
+Sjekker scoren til spilleren mot highscorene for å se om 
+spilleren kvalifiserer til en plass på listen og hvis dette er tilfellet, setter "place" lik highscore-plassen
+til spilleren
+*/
 
 function checkScore(){
-
-    $.getJSON('list.json', function(data){
-        var inHighscore = false;
-		
+	var place = -1;
+    $.getJSON("list.json", function(data){
+	   
 	    for(var i = 0; i < data.players.length; i++){
-	        if(cash > data.players[i].highscore){
-			    inHighscore = true;
-				place = i + 1;
+		    if(cash > data.players[i].highscore){
+			    place = i + 1;
+				inScore = true;
 				break;
-			    }else{
-				place = -1;
+			}else{
+			    inScore = false; 
 				}
-	        } 
-	  
-       return inHighscore;
-  
-   })//:
-
+	        
+	        }
+			
+	    if(inScore == true){
+            buttonsBlackJack(4);
+			alert("Gratulerer, scoren din var høy nok til å nå highscoren, hvis du trykker quit kan du lagre scoren din på plass nr." + place + "eller trykk play again for en sjanse til å få høyere score");
+		    }
+	 
+   });
+	
 }
 
 //
@@ -861,6 +919,21 @@ function buttonsBlackJack(n){
             knappe_node.setAttribute('id', 'restart');
             knappe_node.setAttribute('onclick', 'restart()');
             var knappetekst = document.createTextNode("Play again");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            break;
+		case 4:
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'restart');
+            knappe_node.setAttribute('onclick', 'restart()');
+            var knappetekst = document.createTextNode("Play again");
+            knappe_node.appendChild(knappetekst);
+            knappe_holder.appendChild(knappe_node);
+            
+            var knappe_node = document.createElement('button');
+            knappe_node.setAttribute('id', 'quit');
+            knappe_node.setAttribute('onclick', 'quit()');
+            var knappetekst = document.createTextNode("Quit");
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
             break;
