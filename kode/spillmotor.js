@@ -1,4 +1,3 @@
-
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -378,12 +377,10 @@ function restart() {
 function quit(){
 
     if(cash == 0){
-        window.location.place("index.php");
+        window.location.replace("index.php");
     }else{
         postScore();
         }
-  
-
 }
 
 function cleanse(string){
@@ -496,13 +493,13 @@ function resultat(){
 		buttonsBlackJack(3);
 	    }
 	else if(cash == 0 && won == false){
-	    alert("game over");
+	    //alert("game over");
 	    display(3);
 		buttonsBlackJack(4);
 	    }
 	else if(won == false){
-	    alert("du tapte");
-	    //display(2);
+	    //alert("du tapte");
+	    display(2);
 	    buttonsBlackJack(3);
 	    }
 	
