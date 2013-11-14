@@ -189,6 +189,22 @@ function getCookieAchievement( name ){
 	
 }//End function getCookieAchievement();
 
+//Function that gets the index where the score of the achievement starts.
+function getCookieAchievementIndex( name ){
+	
+	//Stores the cookie as a string in a variable.
+	var cookieString = document.cookie.toString();
+	
+	//Gets the index of the score of the user.
+	var scoreIndex = getCookieScoreIndex( name );
+	
+	//Gets the index of the achievement score of the user.
+	var achieveIndex = cookieString.indexOf( "achieve", scoreIndex ) + 8;
+	
+	return achieveIndex;
+
+}//End function getCookieAchievementIndex();
+
 function buildAchievements( name ){
 	
 	//Achievement string builds here.
