@@ -33,8 +33,8 @@ break;
 
 }//end of for
 
-print_r($temp_arr);
+
 file_put_contents('list.json',json_encode($temp_arr));
-//echo json_encode($temp_arr);
+echo json_encode($temp_arr);
 
 ?>
