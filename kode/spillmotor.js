@@ -1,4 +1,3 @@
-
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -885,7 +884,7 @@ $.ajax({
 
 function getScore(){
 
-    $.getJSON('list.json', function(data){
+    $.getJSON('./struktur/list.json', function(data){
         var utskrift = "";
 	
 	    for(var i = 0; i < data.players.length; i++){
