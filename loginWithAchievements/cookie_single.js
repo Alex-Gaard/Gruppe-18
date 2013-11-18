@@ -8,7 +8,7 @@ function createCookie( name, password ){
 	//Sets startscore of user to 0 with format "xxxxx".
 	//Sets achievement variable to 000 ( no achievements and no easteregg enabled ).
 	var score = "00000";
-	var achieve = "321";
+	var achieve = "000";
 	
 	cookieString += name + "=" + "password!" + password + "!score!" + name + score + "!achieve!" + achieve + "!;";
 	cookieString += "expires=" + exDate.toUTCString() + ";";
@@ -135,6 +135,25 @@ function getCookieScoreInt( name ){
 	//If name is not valid, returns -1.
 	return -1;
 
+}
+
+//Function that checks if a score input is higher than what is already stored in a the cookie of a given value.
+//Replaces the new score witht he old score.
+function isScoreHigher( name, score ){
+
+	var oldScore = getCookieScoreInt( name );
+	var newScore = score;
+	
+	//If the new score is higher than the old score, returns true.
+	if( newScore > oldScore ){
+		
+		setCookieScore( name, newScore );
+		return true;
+	
+	}
+	
+	return false;
+	
 }
 
 //Finds and returns the index of score of a chosen username.
