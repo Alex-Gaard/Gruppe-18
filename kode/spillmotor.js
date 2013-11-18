@@ -637,7 +637,7 @@ function sjekkDealer(){
 			    won = false;
 				display(2);
 			    }
-			else if(dSum() < pSum() && dSum() >= 17 || dSum() > 211){
+			else if(dSum() < pSum() && dSum() >= 17 || dSum() > 21){
 				won = true;
 				display(1);
 				}
