@@ -1,3 +1,4 @@
+
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -393,7 +394,6 @@ function restart() {
 	}
 	
 	if(parseInt(localStorage["cash"]) == 0){
-	    alert("Scoren din ble satt til 200");
 	    playerHits = 2;
 	    dealerHits = 2;
         valgTemp = 0;
@@ -432,12 +432,7 @@ function quit(){
     if(parseInt(localStorage["cash"]) == 0){
         window.location.replace("index.php");
     }else{
-        var score = parseInt(localStorage['cash']);
-        var bruker = getLoggedInAs();
-        isScoreHigher(bruker, score);
-
         postScore();
-        localStorage.setItem('cash', "");
     }
 }
 
@@ -560,8 +555,8 @@ function resultat(){
 	    }
 	else if(cashTemp == 0 && won == false){
 	    display(3);
-		buttonsBlackJack(4);
-	checkScore();
+            buttonsBlackJack(4);
+            checkScore();
 	    }
 	else if(won == false){
 	    display(2);
@@ -637,7 +632,7 @@ function sjekkDealer(){
 			    won = false;
 				display(2);
 			    }
-			else if(dSum() < pSum() && dSum() >= 17 || dSum() > 21){
+			else if(dSum() < pSum() || dSum() > 21){
 				won = true;
 				display(1);
 				}
@@ -877,14 +872,14 @@ $.ajax({
 		success: function(data){
 		    //alert("Skåren din har blitt postet");
                     window.location.replace('?page=highscores');
+                    localStorage.setItem('cash', "");
 		}
-	 
 	 });
 }
 
 function getScore(){
 
-    $.getJSON('./struktur/list.json', function(data){
+    $.getJSON('list.json', function(data){
         var utskrift = "";
 	
 	    for(var i = 0; i < data.players.length; i++){
@@ -901,8 +896,17 @@ til spilleren
 */
 
 function checkScore(){
+        //Setter inn ny høyeste score i kjeks og på siden om høyere enn gammel høyeste score
+        var score = parseInt(localStorage['cash']);
+        var bruker = getLoggedInAs();
+        if (isScoreHigher(bruker, score)) {
+            setCookieScore(bruker, score);
+            var nySpillerStreng = bruker + " - Personal best($" + score + "):";
+            document.getElementsByTagName("h2")[1].innerHTML = nySpillerStreng;
+        }
+        
 	var place = -1;
-    $.getJSON("list.json", function(data){
+    $.getJSON("./struktur/list.json", function(data){
 	var cashTemp = parseInt(localStorage["cash"]);
 	    for(var i = 0; i < data.players.length; i++){
 		    if(cashTemp > data.players[i].highscore){
@@ -917,8 +921,8 @@ function checkScore(){
 			
 	    if(inScore == true){
             buttonsBlackJack(4);
-			alert("Gratulerer, scoren din var høy nok til å nå highscoren, hvis du trykker quit kan du lagre scoren din på plass nr." + place + "eller trykk play again for en sjanse til å få høyere score");
-		    }
+                alert("Gratulerer, scoren din var høy nok til å nå highscoren, hvis du trykker quit kan du lagre scoren din på plass nr." + place + "eller trykk play again for en sjanse til å få høyere score");
+            }
 	 
    });
 	
@@ -988,7 +992,7 @@ function buttonsBlackJack(n){
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
             break;
-		case 4:
+	case 4:
             var knappe_node = document.createElement('button');
             knappe_node.setAttribute('id', 'restart');
             knappe_node.setAttribute('onclick', 'restart()');
@@ -999,7 +1003,8 @@ function buttonsBlackJack(n){
             var knappe_node = document.createElement('button');
             knappe_node.setAttribute('id', 'quit');
             knappe_node.setAttribute('onclick', 'quit()');
-            var knappetekst = document.createTextNode("Quit");
+            if (inScore) var knappetekst = document.createTextNode("Save & Quit");
+                else var knappetekst = document.createTextNode("Quit");
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
             break;
