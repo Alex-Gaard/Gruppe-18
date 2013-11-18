@@ -1,4 +1,3 @@
-
 var kort = new Array();
 var valgt = new Array();
 var dealerHand = new Array();
@@ -632,7 +631,7 @@ function sjekkDealer(){
 			    won = false;
 				display(2);
 			    }
-			else if(dSum() < pSum() || dSum() > 21){
+			else if(dSum() < pSum() && dSum() >= 17 || dSum() > 21){
 				won = true;
 				display(1);
 				}
@@ -877,18 +876,6 @@ $.ajax({
 	 });
 }
 
-function getScore(){
-
-    $.getJSON('list.json', function(data){
-        var utskrift = "";
-	
-	    for(var i = 0; i < data.players.length; i++){
-	        utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
-	        }
-	  
-        alert(utskrift);
-   });
-}
 /*
 Sjekker scoren til spilleren mot highscorene for å se om 
 spilleren kvalifiserer til en plass på listen og hvis dette er tilfellet, setter "place" lik highscore-plassen
