@@ -1,7 +1,7 @@
 <?php
 header('Content-type: text/javascript');
-$name = "test";
-$score = 31;
+$name = "";
+$score = -100;
 $index = -1;
 
 if(isset($_POST['name'],$_POST['score'])){
@@ -35,6 +35,6 @@ break;
 
 
 file_put_contents('list.json',json_encode($temp_arr));
-echo json_encode($temp_arr);
+
 
 ?>
