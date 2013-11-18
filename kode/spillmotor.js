@@ -313,7 +313,7 @@ function deal(){
 		return;
         }
 		
-    resultat();
+
 	buttonsBlackJack(2);
 
 	
@@ -334,12 +334,13 @@ function startHit() {
     if(pSum() > 21){
         display(2);
         won = false;
+        resultat();
         }
     else if(pSum() == 21 || playerHand.length == 5 && card5 == true){
         display(1);
         won = true;
+        resultat();
         }
-    resultat();
 
 }//end of startHit
 
@@ -367,6 +368,10 @@ function hold() {
 }//end of hold
 
 function restart() {
+    var score = parseInt(localStorage['cash']);
+    var bruker = getLoggedInAs();
+    isScoreHigher(bruker, score);
+    
     var elem2 = document.getElementById("spill_resultat");  
 	
     ryddBordet();
@@ -419,7 +424,6 @@ function restart() {
 	    elem2.innerHTML = "";
 	    }
 	
-
     
 
 }//end of restart
@@ -429,10 +433,13 @@ function quit(){
     if(parseInt(localStorage["cash"]) == 0){
         window.location.replace("index.php");
     }else{
-        postScore();
-        }
-  
+        var score = parseInt(localStorage['cash']);
+        var bruker = getLoggedInAs();
+        isScoreHigher(bruker, score);
 
+        postScore();
+        localStorage.setItem('cash', "");
+    }
 }
 
 function cleanse(string){
@@ -521,13 +528,14 @@ function dSum(){
 }//end of dSum
 
 
-function resultat(){
+function resultat(){    
     var cashTemp = parseInt(localStorage["cash"]);
 	if(won == true && pSum() !=  21){
         cashTemp += bet * 2;
 		localStorage.setItem("cash", cashTemp);
         $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
+	checkScore();
         }
 	else if(card5 == true && playerHand.length == 5){
 	    cashTemp += bet * 2;
@@ -535,32 +543,36 @@ function resultat(){
         $("#bank_player").text(cashTemp);
 		won = true;
 		buttonsBlackJack(3);
+	checkScore();
 	    }
 	else if(won == true && pSum() ==  21){
 		cashTemp += Math.ceil(bet * 3/2);
 		localStorage.setItem("cash", cashTemp);
         $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
+	checkScore();
 		}
 	else if(equal == true ){
 	    cashTemp += bet;
 	    localStorage.setItem("cash", cashTemp);
         $("#bank_player").text(cashTemp);
 		buttonsBlackJack(3);
+	checkScore();
 	    }
 	else if(cashTemp == 0 && won == false){
 	    display(3);
 		buttonsBlackJack(4);
+	checkScore();
 	    }
 	else if(won == false){
 	    display(2);
 	    buttonsBlackJack(3);
+	checkScore();
 	    }
 	
 
 	
 
-	checkScore();
 	
 
 }//end of resultat
@@ -855,21 +867,20 @@ function ryddBordet(){
 //
 
 function postScore(){
-var navnElem = document.getElementById("navn");
-var name = navnElem.value;
-var score = parseInt(localStorage["cash"]);
+    var name = getLoggedInAs();
+    var score = parseInt(localStorage["cash"]);
 
 $.ajax({
-	    url: 'highscore.php',
+	    url: './struktur/highscores.php',
 		dataType: 'json',
 		type: 'post',
 		data: 'name='+name+'&score='+score,
 		success: function(data){
-		    alert("Skåren din har blitt postet");
+		    //alert("Skåren din har blitt postet");
+                    window.location.replace('?page=highscores');
 		}
 	 
 	 });
-
 }
 
 function getScore(){
@@ -934,6 +945,7 @@ function buttonsBlackJack(n){
         first_knapp = knappe_holder.firstChild;
     }
     //tegne NYE knapper
+            var sats = document.getElementById('innsats');
     switch (n){
         case 1:
             var knappe_node = document.createElement('button');
@@ -942,6 +954,8 @@ function buttonsBlackJack(n){
             var knappetekst = document.createTextNode("Deal!");
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
+            sats.readOnly = false;
+            sats.focus();
             break;
         case 2:
             var knappe_node = document.createElement('button');
@@ -964,6 +978,8 @@ function buttonsBlackJack(n){
             var knappetekst = document.createTextNode("Double Down");
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
+
+            sats.readOnly = true;
             break;
         case 3:
             var knappe_node = document.createElement('button');
