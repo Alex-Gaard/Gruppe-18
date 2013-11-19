@@ -14,30 +14,29 @@
     </p>
     <p>
         One of the dealers first cards is hidden from your view. You must decide 
-        if you want to stand with the cards you allready got or draw more cards.
+        if you want to stand with the cards you already got or draw more cards.
         Getting more cards is called 'hit', and you do this by clicking the Hit
         button. Otherwise you click the Stand button, to hold.
     </p>
     <p>
         There is a third option as well. It is called 'double down'. Clicking on
-        the Double Down button, you increase your stakes by 100% and get one -1-
+        the Double Down button, you increase your stakes by 100% and get one
         extra card. You then automatically stand and the dealer draws.
     </p>
     <h2>Winning and loosing your bet</h2>
     <p>
-        If your cards sum up to 21, you got BlackJack! This means you immediately
-        win 3:2 of your bettings. Then you can play again, by clicking the Play
+        If your cards sum up to 21 then you've just got a BlackJack! This means you immediately
+        win 3:2 of your bets. Then you can play again, by clicking the Play
         Again button.
     </p>
     <p>
-        If you get more than 21, this is a bust. You loose your bettings and can
-        play again. Clicking the Play Again button always allows you to get new
-        cards.
+        If you get more than 21 then this is considered a bust. You loose your bets, the dealer wins
+        and you are given the option to play again.
     </p>
     <p>
-        If you stand with a sum less than 21, the dealers draw cards. The dealer
-        draws until she wins, it's a tie or she busts. If the dealer busts, you 
-        win 2:1 of your bettings. If it's a tie, you both have the same sum, you
+        If you stand with a sum less than 21, the dealer then draws cards. The dealer
+        draws until it wins, it's a tie or she busts. If the dealer busts, you 
+        win 2:1 of your bettings. If it's a tie, you both have the same sum of cards, then you
         get your bettings back.
     </p>
     <h1>Changing settings and game rules</h1>
@@ -50,10 +49,10 @@
     </p>
     <h2>Soft 17</h2>
     <p>
-        By enabling 'Soft 17' the dealer automatically stands when she gets a 
-        sum of 17 or higher. In the normal game rules she always draws until 
-        she wins or busts, regardless of the sum she has. The soft part is that
-        if she gets 17 AND has drawn an ace, she continues to draw.
+        By enabling 'Soft 17' the dealer automatically stands when it gets a 
+        sum of 17 or higher. By default it will always draw until 
+        it wins or busts, regardless of the sum it has. The soft part is that
+        if it gets 17 AND has drawn an ace, it continues to draw.
     </p>
     <p>
         If the dealer stands at 18, and you got 19, you win. This increases your
@@ -66,5 +65,12 @@
         some rules treat this as a win. By enabling this setting you win if you 
         click the Hit button until you are given 5 cards and still don't bust. 
         This setting is disabled by default.
+    </p>
+    <p>
+    <h2>Achievements</h2> 
+        The game has two kinds of achievements, by getting on the high score list and by playing a lot of games.
+        Each achievement has three tiers you can claim; bronze, silver and gold. Deleting you cookie or not logging in for 100 days, removes all achievements. 
+        High scores: Bronze for claiming any place in the high scores. Silver for placing in the top 5. Gold for claiming 1st place in high scores. 
+        Playing the game: Bronze is awarded for playing 10 games. Silver is awarded for 100 games. Gold is awarded for 1000 games.
     </p>
 </article>
