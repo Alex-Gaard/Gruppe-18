@@ -71,4 +71,13 @@ foreach ($players as $plass) {
             <td><?php echo $score[9]; ?></td>
         </tr>
     </table>
+    <h1>Achievements</h1>
+    <p>
+        The game has two kinds of achievements, by getting on the high score list and by playing a lot of games.
+        Each achievement has three tiers you can claim; bronze, silver and gold. Deleting your cookie or not logging in
+        for 100 days, removes all achievements. See <a href="?page=tutorial">tutorial</a>
+        for more info.
+    </p>
+    <h2>Your achievements!</h2>
+    <p>None?</p>
 </article>
