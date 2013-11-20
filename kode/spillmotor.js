@@ -18,7 +18,7 @@ var inScore = false;
 var bet = 0;
 var won;
 var equal;
-var fortsett = 0;
+var fortsett = false;
 var stop = false;
 var phase = 1;
 
@@ -163,11 +163,10 @@ function setCash(){
 
 //Sjekker om tastetrykkene til brukeren er riktig for å utføre forskjellige funksjoner på siden
 $(document).keydown(function(e) {
-	
     if(e.keyCode == 13 && phase == 1){
 	    deal();
 	    }
-	else if(e.keyCode == 13 && phase == 3){
+	else if(e.keyCode == 13 && phase == 3 || phase == 4){
 	    restart();
 		}
 	else if(e.keyCode == 32 && phase == 2){
@@ -179,9 +178,10 @@ $(document).keydown(function(e) {
 	else if(e.keyCode == 68 && phase == 2){
 		doubleDown();
 		}
-	else if(e.keyCode != 2 && phase == 4){
+	else if(e.keyCode == 81 && phase == 4){
 		quit();
-		}		
+		}
+   
 				
         }
     );
@@ -276,7 +276,7 @@ function deal(){
 				    nrOfDecks();
 				    elem2.innerHTML = "";
                     bet = parseInt(elem.value);
-					fortsett = 1;
+					fortsett = true;
 					phase = 2;
                     
 				    var cashTemp = parseInt(localStorage["cash"]);
@@ -296,7 +296,7 @@ function deal(){
 		elem.focus();
         }
 		
-    if(fortsett == 1){
+    if(fortsett == true){
 
     for(var i = 0; i < 2; i++){
 	    kortTemp = kort[hentKort()];
@@ -308,6 +308,7 @@ function deal(){
 	    playerHand[i] = cleanse(kortTemp);
 	   
 	}
+	
 	$("#dealerSum").text(dSum() - dealerHand[0]);
 	$("#playerSum").text(pSum());
    
@@ -353,16 +354,7 @@ function hold() {
   
     flipCard();
 	$("#dealerSum").text(dSum());
-	if(dSum() > pSum()){
-	    stop = true;
-		won = false;
-	    }
 		
-	if(soft17 == true && dSum() >= 17 && pSum() == dSum()){
-	        stop = true;
-			equal = true;
-	        }
-   
 	sjekkDealer();
 		
 	while(stop == false){
@@ -392,14 +384,9 @@ function restart() {
     $("#dealerSum").text("0");
 	$("#stake_player").text("0");
 
-    for(var i = 0; i < playerHand.length; i++){
-        playerHand[i] = 0;
-        }
-		
-	for(var i = 0; i < dealerHand.length; i++){
-	    dealerHand[i] = 0;
-	    }
-		
+    playerHand =  new Array();
+	dealerHand = new Array();
+	   
     for(var i = 0; i < valgt.length; i++){
 	    valgt[i] = 0;
 	    }
@@ -417,7 +404,7 @@ function restart() {
     won = null;
 	equal = false;
 	stop = false;
-	fortsett = 0;
+	fortsett = false;
 	buttonsBlackJack(1);
 	elem2.innerHTML = "";
         elem2.style.display = "none";
@@ -612,52 +599,58 @@ function doubleDown(){
 function sjekkDealer(){
 
     var gotAce = false;
+	
     if(card5 == true && dealerHand.length == 5 && dSum() <= 21){
 	    won = false;
 		stop = true;
 	    display(2);
+		alert("1");
 	    }
  
 	if(soft17 == true){ // kjører denne delen hvis soft17 regelen er satt til sant
+	
 	    //Sjekker om dealeren har trukket et ess
         for(var i = 0; i < dealerHand.length; i++){
-	        if(dealerHand[i] == 11){
+	        if(dealerHand[i] == 11 || dealerHand[i] == 1){
 		        gotAce = true;
 			    break;
 		        }
 	        }
 	
 	    if(gotAce == false && dSum() >= 17 && stop == false){
-		    stop = true;
-			if(dSum() > pSum()  && dSum() <= 21){
+			if(dSum() > pSum() && dSum() <= 21){
 			    won = false;
+				stop = true;
 				display(2);
 			    }
-			else if(dSum() < pSum() && dSum() >= 17 || dSum() > 21){
+			else if(dSum() < pSum() || dSum() > 21){
 				won = true;
+				stop = true;
 				display(1);
 				}
-			else{
+			else if(dSum() == pSum()){
 				won = false;
+				stop = true;
 				equal = true;
 				display(4);
 				}		
 	        }
 		else if(gotAce == true && dSum() >= 17 && stop == false){
-			    stop = true;
 				if(dSum() > pSum() && dSum() <= 21){
 				    won = false;
 				    display(2);
+					stop = true;
 				    }
-				else if(dSum() == pSum()){
+				else if(dSum() == pSum() && dSum() > 17){
 				    won = false;
 					equal = true;
 					display(4);
-	
+					stop = true;
 				    }
 				else if(dSum() > 21){
 				    won = true;
 					display(1);
+					stop = true;
 				    }
 
 			    }//end of else if
@@ -694,9 +687,10 @@ function display(f){
 	else if(f == 3){
 	    elem2.innerHTML = "Game over, press play again to play more, or press quit to exit the game";
 	    }
-	else{
+	else if(f == 4){
 	    elem2.innerHTML = "It is a draw!";
 	    }
+		
     elem2.style.display = "block";
  }, 600);	
 }
