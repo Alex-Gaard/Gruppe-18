@@ -68,9 +68,16 @@
     </p>
     <p>
     <h2>Achievements</h2> 
-        The game has two kinds of achievements, by getting on the high score list and by playing a lot of games.
-        Each achievement has three tiers you can claim; bronze, silver and gold. Deleting you cookie or not logging in for 100 days, removes all achievements. 
-        High scores: Bronze for claiming any place in the high scores. Silver for placing in the top 5. Gold for claiming 1st place in high scores. 
-        Playing the game: Bronze is awarded for playing 10 games. Silver is awarded for 100 games. Gold is awarded for 1000 games.
+    <p>
+        The game has two kinds of achievements, by getting on the high score list 
+        and by playing a lot of games. Each achievement has three tiers you can 
+        claim; bronze, silver and gold. Deleting you cookie or not logging in 
+        for 100 days, removes all achievements.
+    </p>
+    <p>
+        High scores: Bronze for claiming any place in the high scores. Silver 
+        for placing in the top 5. Gold for claiming 1st place in high scores. 
+        Playing the game: Bronze is awarded for playing 10 games. Silver is 
+        awarded for 100 games. Gold is awarded for 1000 games.
     </p>
 </article>
