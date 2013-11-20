@@ -353,16 +353,15 @@ function hold() {
   
     flipCard();
 	$("#dealerSum").text(dSum());
-	
 	if(dSum() > pSum()){
 	    stop = true;
-            won = false;
+		won = false;
 	    }
 		
 	if(soft17 == true && dSum() >= 17 && pSum() == dSum()){
-	    stop = true;
-            equal = true;
-	    }
+	        stop = true;
+			equal = true;
+	        }
    
 	sjekkDealer();
 		
@@ -611,10 +610,16 @@ function doubleDown(){
 
 //Sjekker og sammenligner skåren til dealer med skåren til spilleren
 function sjekkDealer(){
+
+    var gotAce = false;
+    if(card5 == true && dealerHand.length == 5 && dSum() <= 21){
+	    won = false;
+		stop = true;
+	    display(2);
+	    }
  
 	if(soft17 == true){ // kjører denne delen hvis soft17 regelen er satt til sant
 	    //Sjekker om dealeren har trukket et ess
-		var gotAce = false;
         for(var i = 0; i < dealerHand.length; i++){
 	        if(dealerHand[i] == 11){
 		        gotAce = true;
@@ -632,18 +637,13 @@ function sjekkDealer(){
 				won = true;
 				display(1);
 				}
-			else if(dSum() <= 21 && dealerHand.length == 5 && card5 == true){
-	            display(2);
-                won = false;
-                stop = true;
-	            }
 			else{
 				won = false;
 				equal = true;
 				display(4);
 				}		
-		}
-		else if(gotAce == true && dSum() >= 17 &&  stop == false){
+	        }
+		else if(gotAce == true && dSum() >= 17 && stop == false){
 			    stop = true;
 				if(dSum() > pSum() && dSum() <= 21){
 				    won = false;
@@ -658,14 +658,8 @@ function sjekkDealer(){
 				else if(dSum() > 21){
 				    won = true;
 					display(1);
-				
 				    }
-				else if(dSum() <= 21 && dealerHand.length == 5 && card5 == true){
-	                display(2);
-                    won = false;
-                    stop = true;
-	                }
-			
+
 			    }//end of else if
 	
 	
@@ -681,12 +675,7 @@ function sjekkDealer(){
         won = true;
         display(1);
         }
-	else if(dealerHand.length == 5 && card5 == true){
-	    display(2);
-        won = false;
-        stop = true;
-	    }
-	
+
 	}//end of else
     
 }//end of sjekkDealer
@@ -872,6 +861,7 @@ function buttonsBlackJack(n){
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
             sats.readOnly = false;
+			sats.style.backgroundColor = "red";
             sats.focus();
             break;
         case 2:
@@ -895,7 +885,7 @@ function buttonsBlackJack(n){
             var knappetekst = document.createTextNode("Double Down");
             knappe_node.appendChild(knappetekst);
             knappe_holder.appendChild(knappe_node);
-
+            sats.style.backgroundColor = "#444";
             sats.readOnly = true;
             break;
         case 3:
@@ -942,6 +932,7 @@ function postScore(){
 		data: 'name='+name+'&score='+score,
 		success: function(data){
 		    alert("Skåren din har blitt postet");
+			localStorage.setItem("cash", "");
 			window.location.replace('?page=highscores');
 		}
 	 
