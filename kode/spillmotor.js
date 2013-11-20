@@ -181,7 +181,6 @@ $(document).keydown(function(e) {
 	else if(e.keyCode == 81 && phase == 4){
 		quit();
 		}
-   
 				
         }
     );
@@ -278,23 +277,25 @@ function deal(){
                     bet = parseInt(elem.value);
 					fortsett = true;
 					phase = 2;
-                    
 				    var cashTemp = parseInt(localStorage["cash"]);
                     cashTemp -= bet;
 					localStorage.setItem("cash", cashTemp);
-					
 					buttonsBlackJack(2);
 					$("#stake_player").text(bet);
 	                $("#bank_player").text(cashTemp);
-
+				
                     }
  
     }catch(e){
-	    alert(elem.value);
         elem2.innerHTML = "Please enter a valid number";
         elem.value = "";
 		elem.focus();
         }
+		
+	if(bet == 666){
+		$("link").attr("href", "./struktur/casino_hell.css");
+		setCookieAchievement(getLoggedInAs(), "001");
+		}
 		
     if(fortsett == true){
 
@@ -550,6 +551,17 @@ function resultat(){
 	    }
 	
 	if(won == true || won == false || equal == true){
+	incNumberOfGames(getLoggedInAs());
+	if(getNumberOfGamesInt(getLoggedInAs()) > 100){
+	    setCookieAchievement(getLoggedInAs(), "010");
+	    }
+	else if(getNumberOfGamesInt(getLoggedInAs()) > 10){
+		setCookieAchievement(getLoggedInAs(), "020");
+		}
+	else if(getNumberOfGamesInt(getLoggedInAs()) > 1){
+		setCookieAchievement(getLoggedInAs(), "030");
+		}
+
 	if(phase != 4)
 	phase = 3;
 	}
@@ -604,7 +616,6 @@ function sjekkDealer(){
 	    won = false;
 		stop = true;
 	    display(2);
-		alert("1");
 	    }
  
 	if(soft17 == true){ // kjører denne delen hvis soft17 regelen er satt til sant
@@ -945,6 +956,14 @@ function checkScore(){
 	    for(var i = 0; i < data.players.length; i++){
 		    if(cashTemp > data.players[i].highscore){
 			    place = i + 1;
+				if(place == 1){
+				setCookieAchievement(getLoggedInAs(), "300");
+				}else if(place < 4){
+				setCookieAchievement(getLoggedInAs(), "200")
+				}else if(place < 11){
+				setCookieAchievement(getLoggedInAs(), "100");
+				}
+			
 				inScore = true;
 				break;
 			}else{
