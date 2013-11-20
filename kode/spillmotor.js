@@ -553,13 +553,13 @@ function resultat(){
 	if(won == true || won == false || equal == true){
 	incNumberOfGames(getLoggedInAs());
 	if(getNumberOfGamesInt(getLoggedInAs()) > 100){
-	    setCookieAchievement(getLoggedInAs(), "010");
+	    setCookieAchievement(getLoggedInAs(), "030");
 	    }
 	else if(getNumberOfGamesInt(getLoggedInAs()) > 10){
 		setCookieAchievement(getLoggedInAs(), "020");
 		}
 	else if(getNumberOfGamesInt(getLoggedInAs()) > 1){
-		setCookieAchievement(getLoggedInAs(), "030");
+		setCookieAchievement(getLoggedInAs(), "010");
 		}
 
 	if(phase != 4)
