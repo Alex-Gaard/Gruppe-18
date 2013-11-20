@@ -18,59 +18,62 @@ foreach ($players as $plass) {
 ?>
 
 <article>
-    <h1 id="highscores">High Scores</h1>
-    <table>
-        <tr id="nr1">
+ <fieldset>
+  <legend id="highscores" align="center">Highscores</legend>
+  <table>
+        <tbody>
+            <tr id="nr1">
             <td id="space_left">1.</td>
-            <td><?php echo $navn[0]; ?></td>
-            <td id="space_right"><?php echo $score[0]; ?></td>
+            <td>Alex</td>
+            <td id="space_right">650</td>
         </tr>
         <tr id="nr2">
             <td>2.</td>
-            <td><?php echo $navn[1]; ?></td>
-            <td><?php echo $score[1]; ?></td>
+            <td>Kjeks</td>
+            <td>600</td>
         </tr>
         <tr id="nr3">
             <td>3.</td>
-            <td><?php echo $navn[2]; ?></td>
-            <td><?php echo $score[2]; ?></td>
+            <td>Olav</td>
+            <td>575</td>
         </tr>
         <tr>
             <td>4.</td>
-            <td><?php echo $navn[3]; ?></td>
-            <td><?php echo $score[3]; ?></td>
+            <td>Alex</td>
+            <td>550</td>
         </tr>
         <tr>
             <td>5.</td>
-            <td><?php echo $navn[4]; ?></td>
-            <td><?php echo $score[4]; ?></td>
+            <td>Olav</td>
+            <td>500</td>
         </tr>
         <tr>
             <td>6.</td>
-            <td><?php echo $navn[5]; ?></td>
-            <td><?php echo $score[5]; ?></td>
+            <td>Olav</td>
+            <td>500</td>
         </tr>
         <tr>
             <td>7.</td>
-            <td><?php echo $navn[6]; ?></td>
-            <td><?php echo $score[6]; ?></td>
+            <td>Olav</td>
+            <td>450</td>
         </tr>
         <tr>
             <td>8.</td>
-            <td><?php echo $navn[7]; ?></td>
-            <td><?php echo $score[7]; ?></td>
+            <td>Olav</td>
+            <td>450</td>
         </tr>
         <tr>
             <td>9.</td>
-            <td><?php echo $navn[8]; ?></td>
-            <td><?php echo $score[8]; ?></td>
+            <td>Olav</td>
+            <td>425</td>
         </tr>
         <tr>
             <td>10.</td>
-            <td><?php echo $navn[9]; ?></td>
-            <td><?php echo $score[9]; ?></td>
+            <td>Alex</td>
+            <td>400</td>
         </tr>
-    </table>
+    </tbody></table>
+ </fieldset>
     <h2>Your achievements</h2>
     <p>None?</p>
 </article>
