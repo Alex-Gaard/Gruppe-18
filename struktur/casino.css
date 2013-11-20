@@ -88,26 +88,40 @@ h2{
 }
 #about_us{
     margin-left:2em;
-    
+/* Highscores */
 }
-#forsidebilde{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-#centerbutton{
-    font-size: 1.5em;
-    margin: auto;
+table{
     text-align: center;
+    margin: auto;   
 }
-.centerbutton{
-    float: none;
+#nr1{
+    font-size: 3.5em;
 }
-a{
-    color: inherit;
-    text-decoration:none;
+#space_left{
+    padding-right: 50px;
 }
-
+#space_right{
+    padding-left: 50px;
+}
+#nr2{
+    font-size: 2.8em;
+}
+#nr3{
+    font-size: 2em;
+}
+table tr{
+    font-size: 1.35em;
+}
+fieldset{
+    margin-left: 250px;
+    margin-right: 250px;
+}
+@media screen and (max-width:750px) { /*only if screen has less than 500px width, ie smart phones*/
+    fieldset{
+        margin:0;  
+    }
+}
+/* SLUTT HIGHSCORES*/
 /* START SPILLEROMRÅDE: */
 article h1 {
     margin: 0;
