@@ -361,8 +361,10 @@ function hold() {
             kortTemp = kort[hentKort()];
 	        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
 	        dealerHand[dealerHits] = cleanse(kortTemp);
-	        $("#dealerSum").text(dSum());	
-			dealerHits++;
+                setTimeout(function(){
+                    $("#dealerSum").text(dSum());
+                }, 300);
+		dealerHits++;
 		    }
 			
 		sjekkDealer();
@@ -409,6 +411,7 @@ function restart() {
 	fortsett = 0;
 	buttonsBlackJack(1);
 	elem2.innerHTML = "";
+        elem2.style.display = "none";
 	phase = 1;
 
 }//end of restart
@@ -680,6 +683,7 @@ function sjekkDealer(){
 
 //Skriver resultatet av runden ut på skjermen
 function display(f){
+ setTimeout(function(){
     var elem2 = document.getElementById("spill_resultat");  
 	
 	if(f == 1){ 
@@ -694,7 +698,8 @@ function display(f){
 	else{
 	    elem2.innerHTML = "It is a draw!";
 	    }
-		
+    elem2.style.display = "block";
+ }, 600);	
 }
 
 
@@ -788,9 +793,7 @@ function settInnKort(kort_eier, kort_id, kort_navn){
         // så må det nye kortet plasseres inn i DOM (vi har flyttet id 1 til 2 over)
         nytt_bildekort.setAttribute('id', 'player_card_1');
         var hvor_vil_vi_ha_kortet = document.getElementById('player_space');
-        setTimeout(function(){
-			hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
-        }, 300);
+	hvor_vil_vi_ha_kortet.appendChild(nytt_bildekort);
         spiller_kort_nr ++;
     }
     else alert('Ikke angitt hvor kortet skal tegnes: dealer/ player ...');
@@ -964,4 +967,3 @@ function checkScore(){
    });
 	
 }
-
