@@ -18,19 +18,19 @@ foreach ($players as $plass) {
 ?>
 
 <article>
-    <h1>High Scores</h1>
+    <h1 id="highscores">High Scores</h1>
     <table>
-        <tr>
-            <td>1.</td>
+        <tr id="nr1">
+            <td id="space_left">1.</td>
             <td><?php echo $navn[0]; ?></td>
-            <td><?php echo $score[0]; ?></td>
+            <td id="space_right"><?php echo $score[0]; ?></td>
         </tr>
-        <tr>
+        <tr id="nr2">
             <td>2.</td>
             <td><?php echo $navn[1]; ?></td>
             <td><?php echo $score[1]; ?></td>
         </tr>
-        <tr>
+        <tr id="nr3">
             <td>3.</td>
             <td><?php echo $navn[2]; ?></td>
             <td><?php echo $score[2]; ?></td>
@@ -71,13 +71,6 @@ foreach ($players as $plass) {
             <td><?php echo $score[9]; ?></td>
         </tr>
     </table>
-    <h1>Achievements</h1>
-    <p>
-        The game has two kinds of achievements, by getting on the high score list and by playing a lot of games.
-        Each achievement has three tiers you can claim; bronze, silver and gold. Deleting your cookie or not logging in
-        for 100 days, removes all achievements. See <a href="?page=tutorial">tutorial</a>
-        for more info.
-    </p>
-    <h2>Your achievements!</h2>
+    <h2>Your achievements</h2>
     <p>None?</p>
 </article>
