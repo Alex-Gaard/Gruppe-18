@@ -353,6 +353,16 @@ function hold() {
   
     flipCard();
 	$("#dealerSum").text(dSum());
+	
+	if(dSum() > pSum()){
+	    stop = true;
+            won = false;
+	    }
+		
+	if(soft17 == true && dSum() >= 17 && pSum() == dSum()){
+	    stop = true;
+            equal = true;
+	    }
    
 	sjekkDealer();
 		
