@@ -1,134 +1,43 @@
-
+//Array for kortstokken
 var kort = new Array();
-var valgt = new Array();
+
+//Arrayer for verdiene til kort som har blitt trukket
 var dealerHand = new Array();
 var playerHand = new Array();
 
-
-//Enter = 13
-//Space = 32
-//q = 81
-//d = 68
-var phase = 1;
-
-//REGLER
-//må testes mer
+//variabler for hvilke regler som skal brukes
 var card5 = false; 
 var soft17 = false;
 var nrDecks = 1;
-
-$(document)
-        .keydown(
-            function(e) {
-			
-			
-                if(e.keyCode == 13 && phase == 1){
-				deal();
-				}else if(e.keyCode == 13 && phase == 3){
-				restart();
-				
-				}else if(e.keyCode == 32 && phase == 2){
-				startHit();
-				
-				}else if(e.keyCode == 13 && phase == 2){
-				hold();
-				}else if(e.keyCode == 68 && phase == 2){
-				doubleDown();
-				}else if(e.keyCode != 2 && phase == 4){
-				quit();
-				}
-				
-				
-				
-					
-				
-				
-				
-            }
-        );
-
-
-
-
-if(localStorage["5CardWin"] == undefined && localStorage["soft_17"] == undefined && localStorage["nr_Decks"] == undefined ){
-    localStorage["5CardWin"] = card5;
-    localStorage["soft_17"] = soft17;
-	localStorage["nr_Decks"] = nrDecks;
-    }
-
-
-function setSettings(){
-
-if(localStorage["5CardWin"] == "true"){
-card5 = true;
-}else{
-card5 = false;
-}
-
-if(localStorage["soft_17"] == "true"){
-soft17 = true;
-}else{
-soft17 = false;
-}
-
-nrDecks = parseInt(localStorage["nr_Decks"]);
-
-}
-
 
 //variabler til checkScore
 var place;
 var inScore = false;
 
-
+//variabler for å kjøre forskjellige utfall i spillet
+var bet = 0;
+var won;
+var equal;
+var fortsett = 0;
 var stop = false;
+var phase = 1;
 
-//variabler til hit()
+//variabler til hentKort()
+var valgt = new Array();
 var temp = -100;
 var valgTemp = 0;
 var kortTemp = 0;
 
-
-var finnes = true;
-
-
-//var cash = 200;
-
-
-function setCash(){
-
-    if( localStorage["cash"] == undefined || localStorage["cash"] == "" || localStorage["cash"] < 200){
-
-        localStorage.setItem("cash", 200);
-
-    }else{
-
-        $("#bank_player").text(localStorage["cash"]);
-
-        }
-
-}//end of setCash
-
-
-var bet = 0;
-
-var won;
-var equal;
-var fortsett = 0;
-
+//Antall kort trukket for spiller og dealer
 var playerHits = 2;
 var dealerHits = 2;
 
-
+//Variabler for trekking av kort
 var alt;
 var spiller_kort_nr = 0; //hvor mange kort er delt ut til spiller
 var dealer_kort_nr = 0; //hvor mange kort er delt ut til dealer
 
-
-
-var elem = document.getElementById("bet");
-
- 
+//Navn og verdier for kortstokken blir satt i separate arrayer
 var kort_array_navn = 
     {   c14: "Ace of Clubs", 
         c2: "2 of Clubs", 
@@ -182,8 +91,6 @@ var kort_array_navn =
         s11: "Jack of Spades", 
         s12: "Queen of Spades", 
         s13: "King of Spades"};
-
-
 
 // c = clubs d = diamonds h = hearts s = spades
 kort[0] = "c14";  
@@ -243,6 +150,71 @@ kort[50] = "s12";
 kort[51] = "s13";
 
 
+//Setter "cash" til 200 hvis "cash" ikke har blitt satt fra før, eller hvis "cash" er mindre enn 200
+function setCash(){
+
+    if( localStorage["cash"] == undefined || localStorage["cash"] == "" || localStorage["cash"] < 200){
+        localStorage.setItem("cash", 200);
+    }else{
+        $("#bank_player").text(localStorage["cash"]);
+        }
+
+}//end of setCash
+
+//Sjekker om tastetrykkene til brukeren er riktig for å utføre forskjellige funksjoner på siden
+$(document).keydown(function(e) {
+	
+    if(e.keyCode == 13 && phase == 1){
+	    deal();
+	    }
+	else if(e.keyCode == 13 && phase == 3){
+	    restart();
+		}
+	else if(e.keyCode == 32 && phase == 2){
+		startHit();
+		}
+	else if(e.keyCode == 13 && phase == 2){
+		hold();
+		}
+	else if(e.keyCode == 68 && phase == 2){
+		doubleDown();
+		}
+	else if(e.keyCode != 2 && phase == 4){
+		quit();
+		}		
+				
+        }
+    );
+		
+//Hvis reglene ikke er satt, vil localStorage variablene automatisk bli satt til default reglene til spillet, dvs at "5 cards to win" og "soft 17"
+//ikke blir tatt i bruk, og spillet vil kun bruke 1 kortstokk
+if(localStorage["5CardWin"] == undefined && localStorage["soft_17"] == undefined && localStorage["nr_Decks"] == undefined ){
+    localStorage["5CardWin"] = card5;
+    localStorage["soft_17"] = soft17;
+	localStorage["nr_Decks"] = nrDecks;
+    }
+
+//Setter reglene for spilet, ut ifra hva spilleren har oppgit på "settings" - siden
+function setSettings(){
+
+    if(localStorage["5CardWin"] == "true"){
+        card5 = true;
+        }
+	else{
+        card5 = false;
+        }
+
+    if(localStorage["soft_17"] == "true"){
+        soft17 = true;
+        }    
+    else{
+        soft17 = false;
+        }
+
+    nrDecks = parseInt(localStorage["nr_Decks"]);
+
+}
+
 function nrOfDecks(){
 var nyKort = new Array();
 
@@ -262,8 +234,8 @@ if(nrDecks != 1 && kort.length < 53){
 }//end of nrOfDecks
 
 	
-	
-function hit() {
+//Returnerer et tilfeldig tall
+function hentKort() {
  
 	do{
 	    temp = valgt[a];
@@ -284,17 +256,13 @@ function hit() {
 }//end of hit
 
 
-
+//Sjekker først om innsatsen er godkjent, hvis dette er tilfellet blir to kort utdelt til både spilleren og dealeren,
+//kun det andre kortet som dealeren har trukket blir vist på spillebrettet
 function deal(){
-
-
 	
     var elem = document.getElementById("innsats");
 	var elem2 = document.getElementById("spill_resultat");
-	
-	
 
-	
 	try{
         if(isNaN(parseInt(elem.value))) throw "This is not a number";
 		
@@ -331,11 +299,11 @@ function deal(){
     if(fortsett == 1){
 
     for(var i = 0; i < 2; i++){
-	    kortTemp = kort[hit()];
+	    kortTemp = kort[hentKort()];
         settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
 	    dealerHand[i] = cleanse(kortTemp);
 	
-	    kortTemp = kort[hit()];
+	    kortTemp = kort[hentKort()];
         settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
 	    playerHand[i] = cleanse(kortTemp);
 	   
@@ -352,19 +320,17 @@ function deal(){
 		return;
         }
 		
-
 	buttonsBlackJack(2);
 
-	
 }//end of if
 
 	
 }//end of deal
 
-
+//Trekker et nytt kort til spilleren hver gang "hit"-knappen blir brukt, eller hvis brukeren trykker "space"-knappen
 function startHit() {
    
-    kortTemp = kort[hit()];
+    kortTemp = kort[hentKort()];
     settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
 	playerHand[playerHits] = cleanse(kortTemp);
 	$("#playerSum").text(pSum());
@@ -392,7 +358,7 @@ function hold() {
 		
 	while(stop == false){
 	    if(dSum() < 21 && stop == false){
-            kortTemp = kort[hit()];
+            kortTemp = kort[hentKort()];
 	        settInnKort("dealer", kortTemp, kort_array_navn[kortTemp]);
 	        dealerHand[dealerHits] = cleanse(kortTemp);
 	        $("#dealerSum").text(dSum());	
@@ -406,12 +372,11 @@ function hold() {
 	
 }//end of hold
 
+//Setter variablene på siden tilbake til sin opprinnelige verdi og gjør spillet for en ny runde
 function restart() {
     var elem2 = document.getElementById("spill_resultat");  
 	
     ryddBordet();
-   
-
     $("#playerSum").text("0");
     $("#dealerSum").text("0");
 	$("#stake_player").text("0");
@@ -422,61 +387,45 @@ function restart() {
 		
 	for(var i = 0; i < dealerHand.length; i++){
 	    dealerHand[i] = 0;
-	}
+	    }
 		
     for(var i = 0; i < valgt.length; i++){
 	    valgt[i] = 0;
-	}
+	    }
 	
 	if(parseInt(localStorage["cash"]) == 0){
-	    alert("Scoren din ble satt til 200");
-	    playerHits = 2;
-	    dealerHits = 2;
-        valgTemp = 0;
-        spiller_kort_nr = 0;
-	    dealer_kort_nr = 0;
-        won = null;
-	    equal = false;
-	    stop = false;
-	    fortsett = 0;
-	    buttonsBlackJack(1);
-	    elem2.innerHTML = "";
 		localStorage.setItem("cash", 200);
 		$("#bank_player").text(localStorage["cash"]);
-		
-	
-	}else{
-		playerHits = 2;
-	    dealerHits = 2;
-        valgTemp = 0;
-        spiller_kort_nr = 0;
-	    dealer_kort_nr = 0;
-        won = null;
-	    equal = false;
-	    stop = false;
-	    fortsett = 0;
-	    buttonsBlackJack(1);
-	    elem2.innerHTML = "";
 	    }
+		
+	playerHits = 2;
+	dealerHits = 2;
+    valgTemp = 0;
+    spiller_kort_nr = 0;
+	dealer_kort_nr = 0;
+    won = null;
+	equal = false;
+	stop = false;
+	fortsett = 0;
+	buttonsBlackJack(1);
+	elem2.innerHTML = "";
 	phase = 1;
-
-    
 
 }//end of restart
 
+//Hvis spilleren sin skår er lik 0, vil brukeren bli ført tilbake til forsiden hvis han/hun trykker på knappen
+//Hvis ikke så vil skåren bli "postet" til highscores.php 
 function quit(){
     
 	phase = 1;
-
     if(parseInt(localStorage["cash"]) == 0){
         window.location.replace("index.php");
     }else{
         postScore();
-        //localStorage.setItem('cash', "");
-        //window.location.replace('?page=highscores');
     }
 }
 
+//Fjerner bokstaven fra "string" og returnerer verdien til string
 function cleanse(string){
     var string;
     var ny;
@@ -484,23 +433,19 @@ function cleanse(string){
     if(string.indexOf("c") >= 0){
         ny = string.replace("c","");
         }
-
     else if(string.indexOf("h") >= 0){
         ny = string.replace("h","");
         }
-
     else if(string.indexOf("d") >= 0){
         ny = string.replace("d","");
         }
-
     else if(string.indexOf("s") >= 0){
         ny = string.replace("s","");
         }
-
+		
     if(parseInt(ny) >= 10 && parseInt(ny) != 14){
         ny = 10;
         }
-
     else if(parseInt(ny) == 14){
         ny = 11;
         }
@@ -508,14 +453,14 @@ function cleanse(string){
     return ny;
 }//end of cleanse
 
-
+//Finner summen av kortene til spilleren
 function pSum(){
     var x = 0;
 
     for(var i = 0; i < playerHand.length; i++){
         x += parseInt(playerHand[i]);
         }
-
+		
     if(x > 21){
 	    for(var i = 0; i < playerHand.length; i++){
             if(playerHand[i] == 11){
@@ -535,6 +480,7 @@ function pSum(){
 
 }//end of pSum
 
+//Finner summen av kortene til dealeren
 function dSum(){
     var x = 0;
 
@@ -556,13 +502,11 @@ function dSum(){
     for(var i = 0; i < dealerHand.length; i++){
         x += parseInt(dealerHand[i]);
         }
-
-
- 
+		
     return x;
 }//end of dSum
 
-
+//Sjekker resultatet av runden(hvem som vant eller tapte) og skriver ut dette på skjermen
 function resultat(){    
     var cashTemp = parseInt(localStorage["cash"]);
 	if(won == true && pSum() !=  21){
@@ -606,32 +550,25 @@ function resultat(){
 	    checkScore();
 	    }
 	
-	
 	if(won == true || won == false || equal == true){
 	if(phase != 4)
 	phase = 3;
 	}
 
-	
-
-	
-
 }//end of resultat
 
-
+//Funksjon for "Double Down"-knappen, hvis pengesummen til spilleren er for lav vil spilleren bli informert om dette
 function doubleDown(){
+
    var cashTemp = parseInt(localStorage["cash"]);
-   if(cashTemp >= bet && pSum() != 21 && playerHand.length < 5){
+   if(cashTemp >= bet){
 	
 	    cashTemp -= bet;
 		localStorage.setItem("cash", cashTemp);
 		$("#bank_player").text(cashTemp);
-		
 	    bet *= 2;
 		$("#stake_player").text(bet);
-		
-		
-		kortTemp = kort[hit()];
+		kortTemp = kort[hentKort()];
         settInnKort("player", kortTemp, kort_array_navn[kortTemp]);
 		playerHand[playerHits] = cleanse(kortTemp);
 		$("#playerSum").text(pSum());
@@ -654,24 +591,23 @@ function doubleDown(){
 		    }
 		
 	}else{
-	    alert("Du kan ikke bruke double down nå");
+	    alert("You do not have enough money to use Double Down");
 	}
-	
 	
 }//end of doubleDown
 
-
-
+//Sjekker og sammenligner skåren til dealer med skåren til spilleren
 function sjekkDealer(){
  
-	    var gotAce = false;
-    for(var i = 0; i < dealerHand.length; i++){
-	    if(dealerHand[i] == 11){
-		    gotAce = true;
-			break;
-		    }
-	    }
-	if(soft17 == true){
+	if(soft17 == true){ // kjører denne delen hvis soft17 regelen er satt til sant
+	    //Sjekker om dealeren har trukket et ess
+		var gotAce = false;
+        for(var i = 0; i < dealerHand.length; i++){
+	        if(dealerHand[i] == 11){
+		        gotAce = true;
+			    break;
+		        }
+	        }
 	
 	    if(gotAce == false && dSum() >= 17 && stop == false){
 		    stop = true;
@@ -692,9 +628,7 @@ function sjekkDealer(){
 				won = false;
 				equal = true;
 				display(4);
-				}
-			
-				
+				}		
 		}
 		else if(gotAce == true && dSum() >= 17 &&  stop == false){
 			    stop = true;
@@ -719,11 +653,10 @@ function sjekkDealer(){
                     stop = true;
 	                }
 			
-			
 			    }//end of else if
 	
 	
-	}else{//soft17 == false
+	}else{ // kjører denne delen hvis soft17 regelen er satt til usant
 	
     if(dSum() <= 21 && dSum() > pSum() && stop == false){
         display(2);
@@ -743,13 +676,9 @@ function sjekkDealer(){
 	
 	}//end of else
     
-	
-	
-
-
-   
 }//end of sjekkDealer
 
+//Skriver resultatet av runden ut på skjermen
 function display(f){
     var elem2 = document.getElementById("spill_resultat");  
 	
@@ -903,75 +832,6 @@ function ryddBordet(){
     }
 }
 
-//
-//AJAX delen
-//
-
-function postScore(){
-    var name = "test123";//getLoggedInAs();
-    var score = parseInt(localStorage["cash"]);
-
-$.ajax({
-	    url: './struktur/highscores.php',
-		dataType: 'json',
-		type: 'post',
-		data: 'name='+name+'&score='+score,
-		success: function(data){
-		
-		    alert("Skåren din har blitt postet");
-			window.location.replace('?page=highscores');
-			
-		}
-	 
-	 });
-}
-
-function getScore(){
-
-    $.getJSON('list.json', function(data){
-        var utskrift = "";
-	
-	    for(var i = 0; i < data.players.length; i++){
-	        utskrift += "Plass: " + (i + 1) + "  Navn: " + data.players[i].name + " Highscore: " + data.players[i].highscore + " \n";
-	        }
-	  
-        alert(utskrift);
-   });
-}
-/*
-Sjekker scoren til spilleren mot highscorene for å se om 
-spilleren kvalifiserer til en plass på listen og hvis dette er tilfellet, setter "place" lik highscore-plassen
-til spilleren
-*/
-
-function checkScore(){
-	var place = -1;
-    $.getJSON("./struktur/list.json", function(data){
-	var cashTemp = parseInt(localStorage["cash"]);
-	    for(var i = 0; i < data.players.length; i++){
-		    if(cashTemp > data.players[i].highscore){
-			    place = i + 1;
-				inScore = true;
-				phase = 4;
-				break;
-			}else{
-			    inScore = false; 
-				}
-	        
-	        }
-			
-	    if(inScore == true){
-            buttonsBlackJack(4);
-			alert("Gratulerer, scoren din var høy nok til å nå highscoren, hvis du trykker quit kan du lagre scoren din på plass nr." + place + "eller trykk play again for en sjanse til å få høyere score");
-		    }
-	 
-   });
-	
-}
-
-//
-//Slutt på AJAX
-//
 
 /*-------------------------------------------------------------------*/
 /* Endre hvilke knapper som skal være tegnet til enhver tid: --------*/
@@ -1054,3 +914,54 @@ function buttonsBlackJack(n){
             break;
     }
 }
+
+//AJAX funksjoner
+
+//Poster navn og skår til highscores.php, hvis skåren er høy nok vil highscores.php legge skåren til i highscorelisten
+function postScore(){
+    var name = getLoggedInAs();
+    var score = parseInt(localStorage["cash"]);
+
+    $.ajax({
+	    url: './struktur/highscores.php',
+		dataType: 'json',
+		type: 'post',
+		data: 'name='+name+'&score='+score,
+		success: function(data){
+		    alert("Skåren din har blitt postet");
+			window.location.replace('?page=highscores');
+		}
+	 
+	 });
+}
+
+/*
+Sjekker scoren til spilleren mot highscorene for å se om 
+spilleren kvalifiserer til en plass på listen, hvis dette er tilfellet, setter "place" lik highscore-plassen
+til spilleren
+*/
+function checkScore(){
+	var place = -1;
+    $.getJSON("./struktur/list.json", function(data){
+	var cashTemp = parseInt(localStorage["cash"]);
+	    for(var i = 0; i < data.players.length; i++){
+		    if(cashTemp > data.players[i].highscore){
+			    place = i + 1;
+				inScore = true;
+				break;
+			}else{
+			    inScore = false; 
+				}
+	        
+	        }
+			
+	    if(inScore == true){
+		    phase = 4;
+            buttonsBlackJack(4);
+			alert("Gratulerer, scoren din var høy nok til å nå highscoren, hvis du trykker quit kan du lagre scoren din på plass nr." + place + " eller trykk play again for en sjanse til å få høyere score");
+		    }
+	 
+   });
+	
+}
+
