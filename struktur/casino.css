@@ -82,6 +82,9 @@ nav ul li:hover ul {
 } /*i praksis 'nav ul li ul' der hover er til moderelementet til ul vi skal manipulere*/
 
 /*SLUTT MENY*/
+legend{
+    margin:auto;
+}
 h2{
     text-align:center;
     font-size: 2em;
