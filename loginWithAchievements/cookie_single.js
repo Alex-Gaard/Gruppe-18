@@ -1,3 +1,4 @@
+
 //This function creates a cookie with username, password and startscore.
 function createCookie( name, password ){
 	
@@ -8,9 +9,10 @@ function createCookie( name, password ){
 	//Sets startscore of user to 0 with format "xxxxx".
 	//Sets achievement variable to 000 ( no achievements and no easteregg enabled ).
 	var score = "00000";
+	var xScore = "00000";
 	var achieve = "000";
 	
-	cookieString += name + "=" + "password!" + password + "!score!" + name + score + "!achieve!" + achieve + "!;";
+	cookieString += name + "=" + "password!" + password + "!score!" + name + score + "!achieve!" + achieve + "!xScore!" + xScore + "!;";
 	cookieString += "expires=" + exDate.toUTCString() + ";";
 	//cookieString += "path=/;";
 	//cookieString += "domain=student.cs.hioa.no;";
@@ -18,7 +20,7 @@ function createCookie( name, password ){
 	//Creates a cookie as the cookie string.
 	document.cookie = cookieString;
 
-}
+}//End function createCookie().
 
 //Deletes all cookies on page.
 function deleteCookie(){
@@ -28,7 +30,9 @@ function deleteCookie(){
 	//Sets expiration date to one day in the past.
 	exDate.setDate( exDate.getDate() - 1 );
 	
-	document.cookie = "expires=" + exDate.toUTCString() + ";";
+	document.cookie = getLoggedInAs()+ "=" + "expires=" + exDate.toUTCString() + ";";
+	
+	alert( "The user " + getLoggedInAs() + " is deleted, cookie deletes when you close the browser." );
 
 }
 
@@ -181,13 +185,6 @@ function getCookieScoreIndex( name ){
 	return -1;
 }//End function getCookieScoreIndex().
 
-function setCookieAchievement( name, score ){
-
-	var cookieString = document.cookie.toString();
-	
-
-}
-
 function getCookieAchievement( name ){
 	
 	//Stores the cookies in a string variable.
@@ -208,21 +205,85 @@ function getCookieAchievement( name ){
 	
 }//End function getCookieAchievement();
 
-//Function that gets the index where the score of the achievement starts.
-function getCookieAchievementIndex( name ){
-	
-	//Stores the cookie as a string in a variable.
-	var cookieString = document.cookie.toString();
-	
-	//Gets the index of the score of the user.
-	var scoreIndex = getCookieScoreIndex( name );
-	
-	//Gets the index of the achievement score of the user.
-	var achieveIndex = cookieString.indexOf( "achieve", scoreIndex ) + 8;
-	
-	return achieveIndex;
+//Function that sets the cookie achievement.
+function setCookieAchievement( name, number ){
 
-}//End function getCookieAchievementIndex();
+	var exDate = new Date();
+	exDate.setDate( exDate.getDate() + 100 );
+	
+	var password = getCookiePassword( name );
+	var score = getCookieScore( name );
+	var xGames = changeScoreFormat( getNumberOfGamesInt( name ) ); 
+	var achievement = getCookieAchievement( name );
+	var newAchievement =  "";
+	
+	if( number.charAt( 0 ) != achievement.charAt( 0 ) ){
+		
+		if( parseInt( number.charAt( 0 ) ) > parseInt( achievement.charAt( 0 ) ) ){
+		
+		   newAchievement += number.charAt( 0 );
+		   
+		}
+		
+		if( parseInt( number.charAt( 0 ) ) < parseInt( achievement.charAt( 0 ) ) ){
+		
+		   newAchievement += achievement.charAt( 0 );
+		   
+		}
+	
+	}else if( number.charAt( 0 ) == achievement.charAt( 0 ) ){
+	
+		newAchievement += achievement.charAt( 0 );
+		
+	 }
+	
+	
+	if( number.charAt( 1 ) != achievement.charAt( 1 ) ) {
+	
+		if( parseInt( number.charAt( 1 ) ) > parseInt( achievement.charAt( 1 ) ) ){
+		
+		   newAchievement += number.charAt( 1 );
+		   
+		}
+		
+		if( parseInt( number.charAt( 1 ) ) < parseInt( achievement.charAt( 1 ) ) ){
+		
+		   newAchievement += achievement.charAt( 1 );
+		   
+		}
+		
+	}else if( number.charAt( 1 ) == achievement.charAt( 1 ) ){
+	
+		newAchievement += achievement.charAt( 1 );
+		
+	 }
+	
+	if( number.charAt( 2 ) != achievement.charAt( 2 ) ) {
+		
+		if( parseInt( number.charAt( 2 ) ) > parseInt( achievement.charAt( 2 ) ) ){
+		
+		   newAchievement += number.charAt( 2 );
+		   
+		}
+		
+		if( parseInt( number.charAt( 2 ) ) < parseInt( achievement.charAt( 2 ) ) ){
+		
+		   newAchievement += achievement.charAt( 2 );
+		   
+		}
+	
+	}else if( number.charAt( 2 ) == achievement.charAt( 2 ) ){
+	
+		newAchievement += achievement.charAt( 2 );
+		
+	 }
+	
+	//Builds the new cookie.
+	document.cookie = name + "=" + "password!" + password + "!score!" + score + "!achieve!" + newAchievement + "!xScore!" + xGames + "!;" +
+	                  "expires=" + exDate.toUTCString() + ";";
+	
+
+}
 
 function buildAchievements( name ){
 	
@@ -243,35 +304,31 @@ function buildAchievements( name ){
 	var silver = "Silver";
 	var gold = "Gold";
 	
-	var ac1g = document.getElementById( "AC1G" );
-	var ac1s = document.getElementById( "AC1S" );
-	var ac1b = document.getElementById( "AC1B" );
-	
-	var ac2g = document.getElementById( "AC2G" );
-	var ac2s = document.getElementById( "AC2S" );
-	var ac2b = document.getElementById( "AC2B" );
-	
 	//Sets first achievement.
 	
 	if( achievement.charAt( 0 ) === "1" ){
 	
 		achivementString += a + bronze;
-		ac1b.style.display = "block";
+		document.write("               ");
+		document.write("<img src='./trophies/bronze.jpg'>");
+		alert("0 bro");
 		
 	}
 	
 	if( achievement.charAt( 0 ) === "2" ){
-	
+	    
+		document.write("               ");
 		achievementString += a + silver;
-		ac1s.style.display = "block";
-	
+		document.write("<img src='./trophies/silver.jpg'>");
+	    alert("0 sil");
 	}
 	
 	if( achievement.charAt( 0 ) === "3" ){
 	
 		achievementString += a + gold;
-		ac1g.style.display = "block";
-	
+		document.write("");
+		document.write("<img src='./trophies/gold.jpg'>");
+	alert("0 gol");
 	}
 	
 	//Sets second achievement
@@ -279,21 +336,24 @@ function buildAchievements( name ){
 	if( achievement.charAt( 1 ) === "1" ){
 	
 		achievementString += b + bronze;
-		ac2b.style.display = "block";
+		document.write("<img src='./trophies/bronze.jpg'>");
+		alert("1 bro");
 		
 	}
 	
 	if( achievement.charAt( 1 ) === "2" ){
 	
 		achievementString += b + silver;
-		ac2s.style.display = "block";
+		document.write("<img src='./trophies/silver.jpg'>");
+		alert("1 sil");
 	
 	}
 	
 	if( achievement.charAt( 1 ) === "3" ){
 	
 		achievementString += b + gold;
-		ac2g.style.display = "block";
+		document.write("<img src='./trophies/gold.jpg'>");
+		alert("1 gol");
 	
 	}
 	
@@ -305,13 +365,15 @@ function buildAchievements( name ){
 	
 	}
 	
-	if( achievement.charAt( 2 ) === "1" ){
+	if( parseInt(achievement.charAt( 2 ))  >  0 ){
 	
 		achievementString += c + t;
 	
 	}
 	
-	return achievementString;
+	alert(achievementString);
+	
+	//return achievementString;
 	
 }//End function buildAchievements().
 
@@ -319,10 +381,11 @@ function buildAchievements( name ){
 function changeScoreFormat( score ){
 	
 	var formattedScore = "";
+	var scoreString = score.toString();
 	
-	if( score.length <= 5 ){
+	if( scoreString.length <= 5 ){
 	
-		for( var i = 0; i <= ( 4 - score.length ); i++ ){
+		for( var i = 0; i <= ( 4 - scoreString.length ); i++ ){
 			
 			//Builds up the formatted score to the preferred format "xxxxx"
 			formattedScore += "0";
@@ -330,7 +393,7 @@ function changeScoreFormat( score ){
 		}
 		
 		//Adds appropriate zeroes to number so that it fits the format "xxxxx";
-		formattedScore += score;
+		formattedScore += scoreString;
 	
 		return formattedScore;
 	}
@@ -348,10 +411,12 @@ function setCookieScore( name, score ){
 		
 		//Used for setting a expiration date when the score is changed in the cookie.
 		var exDate = new Date();
-	        exDate.setDate( exDate.getDate() + 100 );
-	        
-	        //Stores the achievements of the user in a variable.
-	        var achievement = getCookieAchievement( name );
+	    exDate.setDate( exDate.getDate() + 100 );
+		
+		var achieve = getCookieAchievement( name );
+		
+		var xScore = getNumberOfGamesInt( name );
+		xScore = changeScoreFormat( xScore );
 		
 		//Gets old score from the cookie
 		var oldScore = getCookieScore( name );
@@ -369,12 +434,55 @@ function setCookieScore( name, score ){
 		//Gets the password for the user.
 		var pword = getCookiePassword (name);
 		
-		document.cookie = " " + name + "=password!" + pword+ "!score!" + newScore + "!achieve!" + achievement + "!;" + "expires=" + exDate + ";";
-		
-		alert( document.cookie.toString() );
+		document.cookie = " " + name + "=password!" + pword+ "!score!" + newScore + "!achieve!" + achieve + "!xScore!" + xScore + "!;" + "expires=" + exDate + ";";
 		
 	}
 	
 	return -1;
 	
 }//End function setCookieScore
+
+function getNumberOfGamesInt( name ){
+	
+	var cookie = document.cookie;
+	
+	var start = getCookieScoreIndex( name );
+	start = cookie.indexOf( "xScore", start ) + 7;
+	
+	var end = cookie.indexOf( "!", start );
+	
+	//Gets the score from the cookie and converts it to an int value.
+	var xScoreInt = parseInt( cookie.substring( start, end ) );
+	
+	return xScoreInt;
+
+}
+
+
+//Function that adds one to number of games when called.
+function incNumberOfGames( name ){
+	
+	var exDate = new Date();
+	exDate.setDate( exDate.getDate() + 100 );
+	
+	var cookie = document.cookie.toString();
+	
+	var password = getCookiePassword( name );
+	var achieve = getCookieAchievement( name );
+	var score = getCookieScore( getLoggedInAs() );
+	
+	var xGamesIndex = cookie.indexOf( "xScore", score ) + 7;
+	var xGamesIndexEnd = cookie.indexOf( "!", xGamesIndex );
+	var xGames = cookie.substring( xGamesIndex, xGamesIndexEnd );
+	
+	var xGamesInt = parseInt( xGames );
+	xGamesInt++;
+	
+	xGames = changeScoreFormat( xGamesInt );
+	
+	//Builds the new cookie.
+	document.cookie = name + "=" + "password!" + password + "!score!" + score + "!achieve!" + achieve + "!xScore!" + xGames + "!;" +
+	                  "expires=" + exDate.toUTCString() + ";";
+		
+
+}
