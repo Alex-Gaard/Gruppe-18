@@ -274,6 +274,7 @@ function deal(){
 				    setSettings();
 				    nrOfDecks();
 				    elem2.innerHTML = "";
+                                    elem2.style.display = 'none';
                     bet = parseInt(elem.value);
 					fortsett = true;
 					phase = 2;
@@ -293,7 +294,7 @@ function deal(){
         }
 		
 	if(bet == 666){
-		$("link").attr("href", "./struktur/casino_hell.css");
+		skift();
 		setCookieAchievement(getLoggedInAs(), "001");
 		}
 		
@@ -328,6 +329,7 @@ function deal(){
 
 	
 }//end of deal
+function skift() {$("link").attr("href", "./struktur/casino_hell.css");}
 
 //Trekker et nytt kort til spilleren hver gang "hit"-knappen blir brukt, eller hvis brukeren trykker "space"-knappen
 function startHit() {
