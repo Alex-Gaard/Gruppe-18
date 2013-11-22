@@ -75,5 +75,6 @@ foreach ($players as $plass) {
     </tbody></table>
  </fieldset>
     <h2>Your achievements</h2>
-    <p>None?</p>
+    <span id=achievements></span>
+    <script>buildAchievement();</script>
 </article>
