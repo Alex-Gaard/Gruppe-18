@@ -1,6 +1,6 @@
 <?php
 // åpner filen, som dytter innholdet inn som en lang streng inn som ett element i et array
-$json = file("./list.json");
+$json = file("./struktur/list.json");
 // tolker strengen (som er i json) inn i et array for de 10 elementene det skal ha
 $players = json_decode($json[0], true);
 
