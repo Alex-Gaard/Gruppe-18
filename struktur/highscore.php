@@ -74,7 +74,16 @@ foreach ($players as $plass) {
         </tr>
     </tbody></table>
  </fieldset>
-    <h2>Your achievements</h2>
+    <h2><script>
+	
+	setCookieAchievement( getLoggedInAs(), "321" );
+	if(getLoggedInAs() == ""){
+	document.write("Your ");
+	}else{
+	document.write(getLoggedInAs());
+	}
+	</script> achievements:</h2>
+
     <span id=achievements></span>
-    <script>buildAchievement();</script>
+    <script>buildAchievements(getLoggedInAs());</script>
 </article>
