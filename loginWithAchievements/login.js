@@ -1,9 +1,49 @@
 
+//This function checks if the login name and password contains only valid characters.
+function validCharacter( x, y ){
+
+	var characters = "abcdefghijklmnopqrstuvwxyzæøå-1234567890";
+	var name = x.toLowerCase();
+	var password = y.toLowerCase();
+									
+	for( var i = 0; i < x.length; i++ ){
+		
+		if( characters.indexOf( name.charAt(i) ) < 0 ){
+
+			return false;
+			
+		}
+
+	}
+	
+	for( var j = 0; j < y.length; j++ ){
+	
+		if( characters.indexOf( password.charAt(j) ) < 0 ){
+
+			return false;
+	
+	    }
+		
+	}
+	
+	return true;
+	
+}//End function validCharacter().
+
 //Validates that all fields in the form are filled out.
 function validateForm( name, password ){
 	
 	var x = name; //Sets x as the value of name field.
 	var y = password; //Sets y as the value of password field.
+	
+	
+	//Checks if username and password contains only valid characters.
+	if( validCharacter( x, y) == false ){
+	
+		alert("Either username or password contains invalid characters!");
+		return;
+	
+	}
 	
 	//Checks if any of the fields are empty and gives a message to the user.
 	if( x == null || x == "" || y == null || y == ""){
