@@ -28,5 +28,5 @@
     an initial ace and six.)  If the player and dealer have the same point total, 
     this is called a "push", and the player typically does not win or lose money 
     on that hand.</p>
-    <p><strong>Source: Wikipedia</strong><a href="http://en.wikipedia.org/wiki/Blackjack" alt="Wikipedias page on BlackJack">/wiki/Blackjack</a>.</p>
+    <p><strong>Source: Wikipedia</strong><a href="http://en.wikipedia.org/wiki/Blackjack">/wiki/Blackjack</a>.</p>
 </article>
