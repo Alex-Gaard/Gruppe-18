@@ -8,29 +8,38 @@ body {
     display: block;
     font-family: Myriad Pro, Arial, sans-serif;
     margin: 0;
-    background-color: #444;
+    background-color: #fff;
+    background: -webkit-linear-gradient(left, #444, #fff, #444); /* For Safari */
+    background: -o-linear-gradient(left, #444, #fff, #444); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #444, #fff, #444); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #444, #fff, #444); /* Standard syntax */
 }
 header, footer {
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #444;
     color: #fff;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 header h1 {
     font-size: 3em;
     padding-top: .3em;
     margin: 0;
-    margin-left: .3em;
 }
 hr {clear: both; border: 1px solid #000}
-footer hr, header hr {border: 3px solid #fff; margin: 0;}
-footer p {margin-top: 1em; margin-left: 1em;}
+footer hr, header hr {
+    border: 3px solid #fff; 
+    margin: 0; 
+    margin-left: -1em; 
+    margin-right: -1em;
+}
 
 /*START MENY*/
 nav {
     float: left; 
     padding: 0; 
     margin: 0; 
-    margin-left: 1em;
 }
 nav ul {
     float: left;
@@ -82,17 +91,48 @@ nav ul li:hover ul {
 } /*i praksis 'nav ul li ul' der hover er til moderelementet til ul vi skal manipulere*/
 
 /*SLUTT MENY*/
-legend{
-    margin:auto;
-}
-h2{
-    text-align:center;
-    font-size: 2em;
-}
 #about_us{
     margin-left:2em;
-/* Highscores */
 }
+#front_page {
+    text-align: center;
+}
+#front_page h1 {font-size: 2em;}
+.centerbutton{
+    font-size: 1.5em;
+    margin: auto;
+    text-align: center;
+    float: none;
+}
+#forsidebilde {
+    width: 388px;
+    float: none;
+}
+article img {
+    float: right;
+    width: 36em;
+    margin: 1em;
+}
+article h1 {
+    margin: 0;
+    font-size: 1.2em;
+}
+article h2{
+    margin: 0;
+    font-size: 1.0em;
+}
+article {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    background-color: #fff;
+    padding: 1em;
+}
+#bj {background-color: #393}
+#hr_bottom {border: 0;}
+
+/* Highscores */
+legend {margin: auto;}
 table{
     text-align: center;
     margin: auto;   
@@ -116,43 +156,37 @@ table tr{
     font-size: 1.35em;
 }
 fieldset{
-    margin-left: 250px;
-    margin-right: 250px;
+    margin: 0;
+    border: 2px solid #000;
 }
-@media screen and (max-width:750px) { /*only if screen has less than 500px width, ie smart phones*/
-    fieldset{
-        margin:0;  
-    }
+#highscore_title {
+    font-size: 2.4em;
 }
 /* SLUTT HIGHSCORES*/
-/* START SPILLEROMRÅDE: */
-article h1 {
-    margin: 0;
-    font-size: 1.2em;
-}
-article h2{
-    margin: 0;
-    font-size: 1.0em;
-}
-article {
-    background-color: #fff;
-    padding: 1em;
-}
-#hr_bottom {border: 0;}
 
-#spill_resultat {
-    clear: both;
-    width: 10em;
+/* START SPILLEROMRÅDE: */
+#spill_resultat { /*boks med beskjeder fra spillet til spilleren*/
+    display: none;
+    position: absolute;
+    left: 35%;
+    top: 35%;
+    z-index: 20;
     margin-left: auto;
     margin-right: auto;
+    padding: 1em;
+    border: 2px solid #f33;
+    border-radius: 1em;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
     background-color: #fff;
 }
+
 .card {
     width: 10em;
     height: 14.21em;
     border: none;
+    z-index: 5;
+    margin: 0;
 }
 .card_right {
     float: right;
@@ -169,15 +203,16 @@ article {
     margin-right: -6.5em;
 }
 #hidden_card {display: none;}
-
 /*bokser med sum av kort*/
 .cards_sum {
     border: 1px solid #000;
     border-radius: .3em;
     font-size: 3em;
+    margin-top: 4px;
     padding: .5em;
     width: 1.33em;
     text-align: center;
+    z-index: 5;
 }
 #cards_sum_dealer {
     margin-left: .3em;
@@ -196,6 +231,7 @@ legend {font-size: .5em;}
     font-size: 3em;
     padding: .5em;
     text-align: center;
+    z-index: 5;
 }
 #stake_boks {
     float: left;
@@ -219,25 +255,32 @@ button {
 #bet_name {color: #fff; font-size: 2.0em;}
 #innsats {
     border: 2px solid #fff;
-    background-color: #f00;
+    background-color: red;
     color: #fff;
     font-size: 2.5em;
     text-align: center;
 }
+/* SLUTT SPILLEROMRÅDE */
 
-@media screen and (max-width:500px) { /*only if screen has less than 500px width, ie smart phones*/
-    button {font-size: 3.5em;}
-    nav ul li {
+/*only if screen has less than 500px width, ie smart phones*/
+@media screen and (max-width:500px) { 
+    button, #innsats {font-size: 3.5em;} 
+    nav ul li { /*større knapper er lettere å treffe med fingeren*/
         border: 1px solid #fff;
         font-size: 2.5em;
     }
 }
-/* SLUTT SPILLEROMRÅDE */
-
 /* FOR STORE SKJERMER */
-@media all and (min-width:640px){
-    p {
+@media all and (min-width:800px){
+    article, header, footer {
         max-width: 800px;
-        margin-right: 5em;
     }
+    #highscore_field{
+    margin-left: 10%;
+    margin-right: 10%;
+    }
+}
+/* FOR LAPTOPSKJERMER */
+@media screen and (max-height:750px) {
+    body {font-size: 0.9em;} /*arves nedover da vi hele tiden har brukt em-verdier!!!*/
 }
