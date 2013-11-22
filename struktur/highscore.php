@@ -19,7 +19,7 @@ foreach ($players as $plass) {
 
 <article>
  <fieldset>
-  <legend id="highscores" align="center">Highscores</legend>
+  <legend id="highscores">Highscores</legend>
   <table>
         <tbody>
             <tr id="nr1">
